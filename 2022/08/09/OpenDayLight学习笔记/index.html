@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha256-xejo6yLi6vGtAjcMIsY8BHdKsLg7QynVlFMzdQgUuy8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="​		本文记录了OpenDayLight的学习过程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenDayLight学习笔记">
+<meta property="og:url" content="http://example.com/2022/08/09/OpenDayLight%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="SDN BOLG">
+<meta property="og:description" content="​		本文记录了OpenDayLight的学习过程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208081944681.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208081947108.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208081948328.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208081949970.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208081949640.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208081949272.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208081949121.png">
+<meta property="article:published_time" content="2022-08-09T11:03:33.833Z">
+<meta property="article:modified_time" content="2022-08-09T08:34:54.140Z">
+<meta property="article:author" content="Simonck">
+<meta property="article:tag" content="ODL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208081944681.png">
+
+
+<link rel="canonical" href="http://example.com/2022/08/09/OpenDayLight%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/08/09/OpenDayLight%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/","path":"2022/08/09/OpenDayLight学习笔记/","title":"OpenDayLight学习笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>OpenDayLight学习笔记 | SDN BOLG</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="SDN BOLG" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">SDN BOLG</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96OpenDayLight%E9%A1%B9%E7%9B%AE%E6%BA%90%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">获取OpenDayLight项目源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE%EF%BC%9AHelloworld"><span class="nav-number">3.</span> <span class="nav-text">第一个项目：Helloworld</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE-1"><span class="nav-number">3.1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E9%A1%B9%E7%9B%AEProjectHelloworld1"><span class="nav-number">3.2.</span> <span class="nav-text">建立项目ProjectHelloworld1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.3.</span> <span class="nav-text">功能实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%88%86%E6%9E%90"><span class="nav-number">3.4.</span> <span class="nav-text">项目分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPC%EF%BC%9ARemote-Procedure-Call"><span class="nav-number">4.</span> <span class="nav-text">RPC：Remote Procedure Call</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LLDP2Controller"><span class="nav-number">4.2.</span> <span class="nav-text">LLDP2Controller</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Simonck"
+      src="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208091628825.jpg">
+  <p class="site-author-name" itemprop="name">Simonck</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/09/OpenDayLight%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208091628825.jpg">
+      <meta itemprop="name" content="Simonck">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SDN BOLG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="OpenDayLight学习笔记 | SDN BOLG">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OpenDayLight学习笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-08-09 19:03:33 / 修改时间：16:34:54" itemprop="dateCreated datePublished" datetime="2022-08-09T19:03:33+08:00">2022-08-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SDN/" itemprop="url" rel="index"><span itemprop="name">SDN</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​		本文记录了OpenDayLight的学习过程。</p>
+<span id="more"></span>
+
+<ul>
+<li>工程名字按照建立顺序命名，规则为Project+名称+序号，使用大驼峰模式。例如：ProjectTest1；</li>
+</ul>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.fnedu.com/course/detail/8d46b121-6059-476a-a058-f79636ec41f6/">OpenDaylight应用开发–基础篇</a></li>
+<li>[ODL技术内幕：架构设计与实现原理](D:\a研究生资料\研二\OpenDayLight\ODL技术内幕：架构设计与实现原理 (耿兴元) (z-lib.org).epub) </li>
+<li><a target="_blank" rel="noopener" href="https://mvnrepository.com/">Maven仓库搜索(一)</a></li>
+<li><a target="_blank" rel="noopener" href="https://search.maven.org/">Maven仓库搜索(二)</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/opendaylight">官方Github</a></li>
+</ul>
+<h2 id="获取OpenDayLight项目源码"><a href="#获取OpenDayLight项目源码" class="headerlink" title="获取OpenDayLight项目源码"></a>获取OpenDayLight项目源码</h2><ul>
+<li><p>下载openflowplugin.zip，在父pom文件下安装到本地</p>
+</li>
+<li><p>&#96;&#96;&#96;java<br>mvn -T 1C clean install -DskipTests -Dskip.karaf.featureTest&#x3D;true -Dmaven.test.skip&#x3D;true -Dcheckstyle.skip&#x3D;true -Dmaven.javadoc.skip&#x3D;true -Dmaven.compile.fork&#x3D;true</p>
+<pre class="line-numbers language-none"><code class="language-none">
+##  新建OpenDayLight项目骨架
+
+### 软件环境
+
+- java version &quot;1.8.0_202&quot;
+- Apache Maven 3.8.4 (9b656c72d54e5bacbed989b64718c159fe39b537)
+- 其它：Postman、VMware、win11、Intellij Idea、cmd…
+
+### 建空项目
+
+- 向标准maven的settings.xml添加odlparent settings.xml内容,添加后的内容为[settings-标准版添加odlparentsettings内容.xml](D:\Maven\settings-标准版添加odlparentsettings内容.xml);
+
+- 在E:\SDN\OpenDayLight\ProjectTest1进入cmd，生成项目骨架:
+
+  &#96;&#96;&#96;java
+  mvn archetype:generate -DarchetypeGroupId&#x3D;org.opendaylight.controller -DarchetypeArtifactId&#x3D;opendaylight-startup-archetype -DarchetypeRepository&#x3D;http:&#x2F;&#x2F;nexus.opendaylight.org&#x2F;content&#x2F;repositories&#x2F;public&#x2F; -DarchetypeCatalog&#x3D;remote -DarchetypeVersion&#x3D;1.5.1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<ul>
+<li><p>填写项目信息，填写不当可能导致 <code>Failed to execute goal org.codehaus.mojo:findbugs-maven-plugin:3.0.5:check：</code>错误</p>
+<ul>
+<li>copyright：版权方，填公司名称，不能数字开头；</li>
+<li>copyrightYear、version：默认；</li>
+<li>groupId：团队名称，建议小驼峰模式；</li>
+<li>artifactId：项目名，建议小驼峰模式；</li>
+<li>package、classPrefix：包名、类前缀，建议默认，尤其是classPrefix。</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208081944681.png" alt="填写项目信息" style="zoom:50%;" />
+</li>
+<li><p>项目文件夹名字为artifactId，进入…\artifactId运行cmd，安装项目到本地:</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">mvn clean install <span class="token operator">-</span><span class="token class-name">DskipTests</span> <span class="token operator">-</span><span class="token class-name">Dmaven</span><span class="token punctuation">.</span>javadoc<span class="token punctuation">.</span>skip<span class="token operator">=</span><span class="token boolean">true</span> <span class="token operator">-</span><span class="token class-name">Dcheckstyle</span><span class="token punctuation">.</span>skip<span class="token operator">=</span><span class="token boolean">true</span> <span class="token operator">-</span>e<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<img src="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208081947108.png" alt="image-20220804145340019" style="zoom:50%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208081948328.png" alt="image-20220805145851666" style="zoom:50%;" /></li>
+</ul>
+<h2 id="第一个项目：Helloworld"><a href="#第一个项目：Helloworld" class="headerlink" title="第一个项目：Helloworld"></a>第一个项目：Helloworld</h2><h3 id="参考文献-1"><a href="#参考文献-1" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_26879323">枫零NET</a>的<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_26879323/article/details/124443136">教程</a>;</li>
+<li><a target="_blank" rel="noopener" href="https://u-hcy.blog.csdn.net/">u_hcy2000</a>的博客 <a target="_blank" rel="noopener" href="https://blog.csdn.net/u_hcy2000/article/details/120745765?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522165199780916782184646677%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=165199780916782184646677&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-7-120745765-null-null.nonecase&utm_term=opendaylight&spm=1018.2226.3001.4450">三、OpenDaylight应用基础开发（ODL的Hello World）</a>;</li>
+<li>耿兴元老师<a target="_blank" rel="noopener" href="https://www.fnedu.com/course/detail/8d46b121-6059-476a-a058-f79636ec41f6/">OpenDaylight应用开发–基础篇</a>;</li>
+</ul>
+<h3 id="建立项目ProjectHelloworld1"><a href="#建立项目ProjectHelloworld1" class="headerlink" title="建立项目ProjectHelloworld1"></a>建立项目ProjectHelloworld1</h3><ul>
+<li>生成项目骨架、填写项目信息并安装到本地</li>
+</ul>
+<h3 id="功能实现"><a href="#功能实现" class="headerlink" title="功能实现"></a>功能实现</h3><ul>
+<li><p>定义YANG文件: 在&#x2F;api&#x2F;src&#x2F;main&#x2F;yang下helloworld.yang文件module{}中添加:</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">rpc hello<span class="token operator">-</span>world <span class="token punctuation">&#123;</span>
+    input <span class="token punctuation">&#123;</span>
+        leaf name <span class="token punctuation">&#123;</span>
+            type string<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    output <span class="token punctuation">&#123;</span>
+        leaf greeting <span class="token punctuation">&#123;</span>
+            type string<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>重新安装项目到本地,上述yang模型会在api&#x2F;target&#x2F;generated-sources&#x2F;mdsal-binding&#x2F;org.opendaylight.yang. gen.v1.utn.opendaylight.params.xml.ns.yang.&lt;项目名&gt;.rev&lt;数字&gt;下生成数个类和接口.</p>
+<img src="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208081949970.png" alt="image-20220804154325994" style="zoom:50%;" />
+</li>
+<li><p>进入impl&#x2F;src&#x2F;main&#x2F;java&#x2F;networkGroup&#x2F;impl&#x2F;HelloworldProvider.java下实现代码;</p>
+</li>
+<li><p>进入impl&#x2F;src&#x2F;main&#x2F;resources&#x2F;org&#x2F;opendaylight&#x2F;blueprint&#x2F;impl-blueprint.xml,在<code>&lt;blueprint&gt;&lt;/blueprint&gt;</code>中添加<code>&lt;odl:rpc-implementation ref=&quot;provider&quot;/&gt;</code>;</p>
+</li>
+<li><p>重新安装项目,运行E:\SDN\OpenDayLight\ProjectHelloworld1\helloworld\karaf\target\assembly\bin\karaf.bat;</p>
+</li>
+<li><p>使用Postman，POST方式调用 <a target="_blank" rel="noopener" href="http://localhost:8181/restconf/operations/helloworld:hello-world%EF%BC%9B">http://localhost:8181/restconf/operations/helloworld:hello-world；</a></p>
+<img src="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208081949640.png" alt="image-20220804172512919" style="zoom:50%;" /></li>
+</ul>
+<h3 id="项目分析"><a href="#项目分析" class="headerlink" title="项目分析"></a>项目分析</h3><p>​		Helloworld作为OpenDayLight入门的第一个项目，使用了RPC机制来实现功能，需要理解的内容包括：</p>
+<ul>
+<li><p>YANG模型和自动生成的工具类、工具接口的对应关系:</p>
+<img src="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208081949272.png" alt="image-20220805090638110" style="zoom:67%;" />
+</li>
+<li><p>是哪些代码实现了读取数据和发送数据的:</p>
+<img src="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208081949121.png" alt="image-20220805132457469" style="zoom:33%;" />
+</li>
+<li><p>blueprint是OSGI规范的一部分,ODL使用Apache Blueprint，是XML。</p>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bean</td>
+<td>描述创建Java实例的元素，可以指定实例初始化的类名、构造方法、构造方法的入参及属性</td>
+</tr>
+<tr>
+<td>service</td>
+<td>将bean发布为OSGi Service</td>
+</tr>
+<tr>
+<td>reference</td>
+<td>通过接口名引用一个OSGi Service，可以指定一个特定的属性过滤器</td>
+</tr>
+<tr>
+<td>reference-list</td>
+<td>通过接口名引用多个OSGi Service，可以指定一个特定的属性过滤器</td>
+</tr>
+</tbody></table>
+<p>Global RPC、Routed RPC、Notification的订阅、注册、获取都在blueprint操作。</p>
+</li>
+</ul>
+<h2 id="RPC：Remote-Procedure-Call"><a href="#RPC：Remote-Procedure-Call" class="headerlink" title="RPC：Remote Procedure Call"></a>RPC：Remote Procedure Call</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><ul>
+<li><p>RPC有两类：Global RPC和Routed RPC</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>区别</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Global RPC</td>
+<td>一个节点上只有一个RPC实例会被调用，注册多个实例时第一个注册的生效</td>
+</tr>
+<tr>
+<td>Routed RPC</td>
+<td>通过不同的RoutedId可以调用不同的RPC实例</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>如何理解ODL中的RPC：<strong>异步</strong>的响应模式，<strong>单播</strong>关系</p>
+</li>
+</ul>
+<h3 id="LLDP2Controller"><a href="#LLDP2Controller" class="headerlink" title="LLDP2Controller"></a>LLDP2Controller</h3><p>​		想通过RPC调用openflowplugin项目提供的下发流表功能实现上送LLDP报文到控制器的操作，该功能涉及配置POM文件、获取RPC、注册RPC等内容,在Helloworld项目基础上实现.</p>
+<ul>
+<li><p>把openflowplugin项目依赖进来,在impl&#x2F;pom.xml下<code>&lt;dependencyManagement&gt;&lt;/dependencyManagement&gt;</code>中添加openflowplugin-artifacts</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token generics"><span class="token punctuation">&lt;</span>dependency<span class="token punctuation">></span></span>
+    <span class="token generics"><span class="token punctuation">&lt;</span>groupId<span class="token punctuation">></span></span>org<span class="token punctuation">.</span>opendaylight<span class="token punctuation">.</span>openflowplugin<span class="token operator">&lt;</span><span class="token operator">/</span>groupId<span class="token operator">></span>
+    <span class="token generics"><span class="token punctuation">&lt;</span>artifactId<span class="token punctuation">></span></span>openflowplugin<span class="token operator">-</span>artifacts<span class="token operator">&lt;</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
+    <span class="token generics"><span class="token punctuation">&lt;</span>version<span class="token punctuation">></span></span><span class="token number">0.6</span><span class="token number">.1</span><span class="token operator">&lt;</span><span class="token operator">/</span>version<span class="token operator">></span>
+    <span class="token generics"><span class="token punctuation">&lt;</span>type<span class="token punctuation">></span></span>pom<span class="token operator">&lt;</span><span class="token operator">/</span>type<span class="token operator">></span>
+    <span class="token generics"><span class="token punctuation">&lt;</span>scope<span class="token punctuation">></span></span><span class="token keyword">import</span><span class="token operator">&lt;</span><span class="token operator">/</span>scope<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>dependency<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>通过blueprint调用SalFlowService中的add-flow rpc,Global RPC和Routed RPC的获取方式相同：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//都是用rpc-service标签</span>
+<span class="token comment">//add-flow rpc找到了,但是为什么调用Id是"flowService"?找不到?</span>
+<span class="token operator">&lt;</span>odl<span class="token operator">:</span>rpc<span class="token operator">-</span>service id<span class="token operator">=</span><span class="token string">"flowService"</span> <span class="token keyword">interface</span><span class="token operator">=</span><span class="token string">"org.opendaylight.yang.gen.v1.urn.opendaylight.flow.service.rev130819.SalFlowService"</span><span class="token operator">/</span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>建立一个新的bean,规定类的组成:</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token operator">&lt;</span>bean id<span class="token operator">=</span><span class="token string">"LLDPToControllerFlowWriter"</span>
+        <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"networkGroup.impl.LLDPToControllerFlowWriter"</span>
+        init<span class="token operator">-</span>method<span class="token operator">=</span><span class="token string">"init"</span> destroy<span class="token operator">-</span>method<span class="token operator">=</span><span class="token string">"close"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>argument ref<span class="token operator">=</span><span class="token string">"dataBroker"</span> <span class="token operator">/</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>argument ref<span class="token operator">=</span><span class="token string">"flowService"</span> <span class="token operator">/</span><span class="token operator">></span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>bean<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>在impl&#x2F;pom.xml下<code>&lt;dependencies&gt;&lt;/dependencies&gt;</code>添加bundle依赖</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">  <span class="token generics"><span class="token punctuation">&lt;</span>dependency<span class="token punctuation">></span></span>
+<span class="token generics"><span class="token punctuation">&lt;</span>groupId<span class="token punctuation">></span></span>org<span class="token punctuation">.</span>opendaylight<span class="token punctuation">.</span>openflowplugin<span class="token operator">&lt;</span><span class="token operator">/</span>groupId<span class="token operator">></span>
+   <span class="token generics"><span class="token punctuation">&lt;</span>artifactId<span class="token punctuation">></span></span>openflowplugin<span class="token operator">-</span>api<span class="token operator">&lt;</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
+ <span class="token operator">&lt;</span><span class="token operator">/</span>dependency<span class="token operator">></span>
+ <span class="token generics"><span class="token punctuation">&lt;</span>dependency<span class="token punctuation">></span></span>
+   <span class="token generics"><span class="token punctuation">&lt;</span>groupId<span class="token punctuation">></span></span>org<span class="token punctuation">.</span>opendaylight<span class="token punctuation">.</span>openflowplugin<span class="token operator">&lt;</span><span class="token operator">/</span>groupId<span class="token operator">></span>
+   <span class="token generics"><span class="token punctuation">&lt;</span>artifactId<span class="token punctuation">></span></span>openflowplugin<span class="token operator">-</span>common<span class="token operator">&lt;</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
+ <span class="token operator">&lt;</span><span class="token operator">/</span>dependency<span class="token operator">></span>
+ <span class="token generics"><span class="token punctuation">&lt;</span>dependency<span class="token punctuation">></span></span>
+   <span class="token generics"><span class="token punctuation">&lt;</span>groupId<span class="token punctuation">></span></span>org<span class="token punctuation">.</span>opendaylight<span class="token punctuation">.</span>controller<span class="token punctuation">.</span>model<span class="token operator">&lt;</span><span class="token operator">/</span>groupId<span class="token operator">></span>
+   <span class="token generics"><span class="token punctuation">&lt;</span>artifactId<span class="token punctuation">></span></span>model<span class="token operator">-</span>inventory<span class="token operator">&lt;</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
+ <span class="token operator">&lt;</span><span class="token operator">/</span>dependency<span class="token operator">></span>
+ <span class="token generics"><span class="token punctuation">&lt;</span>dependency<span class="token punctuation">></span></span>
+   <span class="token generics"><span class="token punctuation">&lt;</span>groupId<span class="token punctuation">></span></span>org<span class="token punctuation">.</span>opendaylight<span class="token punctuation">.</span>openflowplugin<span class="token punctuation">.</span>model<span class="token operator">&lt;</span><span class="token operator">/</span>groupId<span class="token operator">></span>
+   <span class="token generics"><span class="token punctuation">&lt;</span>artifactId<span class="token punctuation">></span></span>model<span class="token operator">-</span>flow<span class="token operator">-</span>service<span class="token operator">&lt;</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
+ <span class="token operator">&lt;</span><span class="token operator">/</span>dependency<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>在impl下新建java类.LLDPToControllerFlowWriter</p>
+</li>
+</ul>
+<p>​    </p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ODL/" rel="tag"># ODL</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/08/09/%E5%B7%A5%E5%85%B7Utils/" rel="prev" title="工具Utils">
+                  <i class="fa fa-chevron-left"></i> 工具Utils
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Simonck</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+-->
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+
+</body>
+</html>
