@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="​		本文记录了OpenDayLight的学习过程。">
 <meta property="og:type" content="article">
@@ -89,7 +89,6 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -98,37 +97,11 @@
 
 <nav class="site-nav">
   <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
   </ul>
 </nav>
 
 
 
-  <div class="search-pop-overlay">
-    <div class="popup search-popup"><div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off" maxlength="80"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close" role="button">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div class="search-result-container no-result">
-  <div class="search-result-icon">
-    <i class="fa fa-spinner fa-pulse fa-5x"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
 
 </div>
         
@@ -293,7 +266,7 @@
 <li><p>向标准maven的settings.xml添加odlparent settings.xml内容,添加后的内容为<a href="D:\Maven\settings-标准版添加odlparentsettings内容.xml">settings-标准版添加odlparentsettings内容.xml</a>;</p>
 </li>
 <li><p>在E:\SDN\OpenDayLight\ProjectTest1进入cmd，生成项目骨架:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn archetype:generate -DarchetypeGroupId=org.opendaylight.controller -DarchetypeArtifactId=opendaylight-startup-archetype -DarchetypeRepository=http:<span class="comment">//nexus.opendaylight.org/content/repositories/public/ -DarchetypeCatalog=remote -DarchetypeVersion=1.5.1</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">mvn archetype<span class="token operator">:</span>generate <span class="token operator">-</span><span class="token class-name">DarchetypeGroupId</span><span class="token operator">=</span>org<span class="token punctuation">.</span>opendaylight<span class="token punctuation">.</span>controller <span class="token operator">-</span><span class="token class-name">DarchetypeArtifactId</span><span class="token operator">=</span>opendaylight<span class="token operator">-</span>startup<span class="token operator">-</span>archetype <span class="token operator">-</span><span class="token class-name">DarchetypeRepository</span><span class="token operator">=</span>http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>nexus<span class="token punctuation">.</span>opendaylight<span class="token punctuation">.</span>org<span class="token operator">/</span>content<span class="token operator">/</span>repositories<span class="token operator">/</span><span class="token keyword">public</span><span class="token operator">/</span> <span class="token operator">-</span><span class="token class-name">DarchetypeCatalog</span><span class="token operator">=</span>remote <span class="token operator">-</span><span class="token class-name">DarchetypeVersion</span><span class="token operator">=</span><span class="token number">1.5</span><span class="token number">.1</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 <li><p>填写项目信息，填写不当可能导致 <code>Failed to execute goal org.codehaus.mojo:findbugs-maven-plugin:3.0.5:check：</code>错误</p>
 <ul>
@@ -306,7 +279,7 @@
 <img src="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208081944681.png" alt="填写项目信息" style="zoom:50%;" />
 </li>
 <li><p>项目文件夹名字为artifactId，进入…\artifactId运行cmd，安装项目到本地:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean install -DskipTests -Dmaven.javadoc.skip=<span class="literal">true</span> -Dcheckstyle.skip=<span class="literal">true</span> -e</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">mvn clean install <span class="token operator">-</span><span class="token class-name">DskipTests</span> <span class="token operator">-</span><span class="token class-name">Dmaven</span><span class="token punctuation">.</span>javadoc<span class="token punctuation">.</span>skip<span class="token operator">=</span><span class="token boolean">true</span> <span class="token operator">-</span><span class="token class-name">Dcheckstyle</span><span class="token punctuation">.</span>skip<span class="token operator">=</span><span class="token boolean">true</span> <span class="token operator">-</span>e<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <img src="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208081947108.png" alt="image-20220804145340019" style="zoom:50%;" />
 
@@ -322,7 +295,18 @@
 </ul>
 <h3 id="功能实现"><a href="#功能实现" class="headerlink" title="功能实现"></a>功能实现</h3><ul>
 <li><p>定义YANG文件: 在&#x2F;api&#x2F;src&#x2F;main&#x2F;yang下helloworld.yang文件module{}中添加:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">rpc hello-world &#123;</span><br><span class="line">    input &#123;</span><br><span class="line">        leaf name &#123;</span><br><span class="line">            type string;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    output &#123;</span><br><span class="line">        leaf greeting &#123;</span><br><span class="line">            type string;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">rpc hello<span class="token operator">-</span>world <span class="token punctuation">&#123;</span>
+    input <span class="token punctuation">&#123;</span>
+        leaf name <span class="token punctuation">&#123;</span>
+            type string<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    output <span class="token punctuation">&#123;</span>
+        leaf greeting <span class="token punctuation">&#123;</span>
+            type string<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>重新安装项目到本地,上述yang模型会在api&#x2F;target&#x2F;generated-sources&#x2F;mdsal-binding&#x2F;org.opendaylight.yang. gen.v1.utn.opendaylight.params.xml.ns.yang.&lt;项目名&gt;.rev&lt;数字&gt;下生成数个类和接口.</p>
 <img src="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208081949970.png" alt="image-20220804154325994" style="zoom:50%;" />
@@ -397,16 +381,44 @@
 <h3 id="LLDP2Controller"><a href="#LLDP2Controller" class="headerlink" title="LLDP2Controller"></a>LLDP2Controller</h3><p>​		想通过RPC调用openflowplugin项目提供的下发流表功能实现上送LLDP报文到控制器的操作，该功能涉及配置POM文件、获取RPC、注册RPC等内容,在Helloworld项目基础上实现.</p>
 <ul>
 <li><p>把openflowplugin项目依赖进来,在impl&#x2F;pom.xml下<code>&lt;dependencyManagement&gt;&lt;/dependencyManagement&gt;</code>中添加openflowplugin-artifacts</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.opendaylight.openflowplugin&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;openflowplugin-artifacts&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;<span class="number">0.6</span><span class="number">.1</span>&lt;/version&gt;</span><br><span class="line">    &lt;type&gt;pom&lt;/type&gt;</span><br><span class="line">    &lt;scope&gt;<span class="keyword">import</span>&lt;/scope&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token generics"><span class="token punctuation">&lt;</span>dependency<span class="token punctuation">></span></span>
+    <span class="token generics"><span class="token punctuation">&lt;</span>groupId<span class="token punctuation">></span></span>org<span class="token punctuation">.</span>opendaylight<span class="token punctuation">.</span>openflowplugin<span class="token operator">&lt;</span><span class="token operator">/</span>groupId<span class="token operator">></span>
+    <span class="token generics"><span class="token punctuation">&lt;</span>artifactId<span class="token punctuation">></span></span>openflowplugin<span class="token operator">-</span>artifacts<span class="token operator">&lt;</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
+    <span class="token generics"><span class="token punctuation">&lt;</span>version<span class="token punctuation">></span></span><span class="token number">0.6</span><span class="token number">.1</span><span class="token operator">&lt;</span><span class="token operator">/</span>version<span class="token operator">></span>
+    <span class="token generics"><span class="token punctuation">&lt;</span>type<span class="token punctuation">></span></span>pom<span class="token operator">&lt;</span><span class="token operator">/</span>type<span class="token operator">></span>
+    <span class="token generics"><span class="token punctuation">&lt;</span>scope<span class="token punctuation">></span></span><span class="token keyword">import</span><span class="token operator">&lt;</span><span class="token operator">/</span>scope<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>dependency<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>通过blueprint调用SalFlowService中的add-flow rpc,Global RPC和Routed RPC的获取方式相同：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//都是用rpc-service标签</span></span><br><span class="line"><span class="comment">//add-flow rpc找到了,但是为什么调用Id是&quot;flowService&quot;?找不到?</span></span><br><span class="line">&lt;odl:rpc-service id=<span class="string">&quot;flowService&quot;</span> interface=<span class="string">&quot;org.opendaylight.yang.gen.v1.urn.opendaylight.flow.service.rev130819.SalFlowService&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//都是用rpc-service标签</span>
+<span class="token comment">//add-flow rpc找到了,但是为什么调用Id是"flowService"?找不到?</span>
+<span class="token operator">&lt;</span>odl<span class="token operator">:</span>rpc<span class="token operator">-</span>service id<span class="token operator">=</span><span class="token string">"flowService"</span> <span class="token keyword">interface</span><span class="token operator">=</span><span class="token string">"org.opendaylight.yang.gen.v1.urn.opendaylight.flow.service.rev130819.SalFlowService"</span><span class="token operator">/</span><span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>建立一个新的bean,规定类的组成:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">&quot;LLDPToControllerFlowWriter&quot;</span></span><br><span class="line">        class=<span class="string">&quot;networkGroup.impl.LLDPToControllerFlowWriter&quot;</span></span><br><span class="line">        init-method=<span class="string">&quot;init&quot;</span> destroy-method=<span class="string">&quot;close&quot;</span>&gt;</span><br><span class="line">    &lt;argument ref=<span class="string">&quot;dataBroker&quot;</span> /&gt;</span><br><span class="line">    &lt;argument ref=<span class="string">&quot;flowService&quot;</span> /&gt;</span><br><span class="line">  &lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token operator">&lt;</span>bean id<span class="token operator">=</span><span class="token string">"LLDPToControllerFlowWriter"</span>
+        <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"networkGroup.impl.LLDPToControllerFlowWriter"</span>
+        init<span class="token operator">-</span>method<span class="token operator">=</span><span class="token string">"init"</span> destroy<span class="token operator">-</span>method<span class="token operator">=</span><span class="token string">"close"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>argument ref<span class="token operator">=</span><span class="token string">"dataBroker"</span> <span class="token operator">/</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>argument ref<span class="token operator">=</span><span class="token string">"flowService"</span> <span class="token operator">/</span><span class="token operator">></span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>bean<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>在impl&#x2F;pom.xml下<code>&lt;dependencies&gt;&lt;/dependencies&gt;</code>添加bundle依赖</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">  &lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;org.opendaylight.openflowplugin&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;openflowplugin-api&lt;/artifactId&gt;</span><br><span class="line"> &lt;/dependency&gt;</span><br><span class="line"> &lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.opendaylight.openflowplugin&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;openflowplugin-common&lt;/artifactId&gt;</span><br><span class="line"> &lt;/dependency&gt;</span><br><span class="line"> &lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.opendaylight.controller.model&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;model-inventory&lt;/artifactId&gt;</span><br><span class="line"> &lt;/dependency&gt;</span><br><span class="line"> &lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.opendaylight.openflowplugin.model&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;model-flow-service&lt;/artifactId&gt;</span><br><span class="line"> &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">  <span class="token generics"><span class="token punctuation">&lt;</span>dependency<span class="token punctuation">></span></span>
+<span class="token generics"><span class="token punctuation">&lt;</span>groupId<span class="token punctuation">></span></span>org<span class="token punctuation">.</span>opendaylight<span class="token punctuation">.</span>openflowplugin<span class="token operator">&lt;</span><span class="token operator">/</span>groupId<span class="token operator">></span>
+   <span class="token generics"><span class="token punctuation">&lt;</span>artifactId<span class="token punctuation">></span></span>openflowplugin<span class="token operator">-</span>api<span class="token operator">&lt;</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
+ <span class="token operator">&lt;</span><span class="token operator">/</span>dependency<span class="token operator">></span>
+ <span class="token generics"><span class="token punctuation">&lt;</span>dependency<span class="token punctuation">></span></span>
+   <span class="token generics"><span class="token punctuation">&lt;</span>groupId<span class="token punctuation">></span></span>org<span class="token punctuation">.</span>opendaylight<span class="token punctuation">.</span>openflowplugin<span class="token operator">&lt;</span><span class="token operator">/</span>groupId<span class="token operator">></span>
+   <span class="token generics"><span class="token punctuation">&lt;</span>artifactId<span class="token punctuation">></span></span>openflowplugin<span class="token operator">-</span>common<span class="token operator">&lt;</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
+ <span class="token operator">&lt;</span><span class="token operator">/</span>dependency<span class="token operator">></span>
+ <span class="token generics"><span class="token punctuation">&lt;</span>dependency<span class="token punctuation">></span></span>
+   <span class="token generics"><span class="token punctuation">&lt;</span>groupId<span class="token punctuation">></span></span>org<span class="token punctuation">.</span>opendaylight<span class="token punctuation">.</span>controller<span class="token punctuation">.</span>model<span class="token operator">&lt;</span><span class="token operator">/</span>groupId<span class="token operator">></span>
+   <span class="token generics"><span class="token punctuation">&lt;</span>artifactId<span class="token punctuation">></span></span>model<span class="token operator">-</span>inventory<span class="token operator">&lt;</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
+ <span class="token operator">&lt;</span><span class="token operator">/</span>dependency<span class="token operator">></span>
+ <span class="token generics"><span class="token punctuation">&lt;</span>dependency<span class="token punctuation">></span></span>
+   <span class="token generics"><span class="token punctuation">&lt;</span>groupId<span class="token punctuation">></span></span>org<span class="token punctuation">.</span>opendaylight<span class="token punctuation">.</span>openflowplugin<span class="token punctuation">.</span>model<span class="token operator">&lt;</span><span class="token operator">/</span>groupId<span class="token operator">></span>
+   <span class="token generics"><span class="token punctuation">&lt;</span>artifactId<span class="token punctuation">></span></span>model<span class="token operator">-</span>flow<span class="token operator">-</span>service<span class="token operator">&lt;</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
+ <span class="token operator">&lt;</span><span class="token operator">/</span>dependency<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>在impl下新建java类.LLDPToControllerFlowWriter</p>
 </li>
@@ -473,8 +485,6 @@
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
-<script src="/js/third-party/search/local-search.js"></script>
 
 
 

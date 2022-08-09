@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="​		本文记录了学习SDN过程中涉及的YANG语言的知识点。">
 <meta property="og:type" content="article">
@@ -83,7 +83,6 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -92,37 +91,11 @@
 
 <nav class="site-nav">
   <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
   </ul>
 </nav>
 
 
 
-  <div class="search-pop-overlay">
-    <div class="popup search-popup"><div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off" maxlength="80"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close" role="button">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div class="search-result-container no-result">
-  <div class="search-result-icon">
-    <i class="fa fa-spinner fa-pulse fa-5x"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
 
 </div>
         
@@ -282,30 +255,139 @@
 </ul>
 <h3 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h3><h4 id="YANG有四种数据建模节点类型：leaf、leaf-list、container-、list"><a href="#YANG有四种数据建模节点类型：leaf、leaf-list、container-、list" class="headerlink" title="YANG有四种数据建模节点类型：leaf、leaf-list、container 、list;"></a>YANG有四种数据建模节点类型：leaf、leaf-list、container 、list;</h4><ul>
 <li><p>leaf：只能包含一个值，没有子节点；</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//一个名字叫host-name的leaf类型的节点</span></span><br><span class="line"><span class="comment">//节点包含string类型的数据</span></span><br><span class="line"><span class="comment">//描述信息是&quot;Hostname for this system&quot;</span></span><br><span class="line">leaf host-name &#123;</span><br><span class="line">type string; <span class="comment">//必选</span></span><br><span class="line">description <span class="string">&quot;Hostname for this system&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//一个名字叫host-name的leaf类型的节点</span>
+<span class="token comment">//节点包含string类型的数据</span>
+<span class="token comment">//描述信息是"Hostname for this system"</span>
+leaf host<span class="token operator">-</span>name <span class="token punctuation">&#123;</span>
+type string<span class="token punctuation">;</span> <span class="token comment">//必选</span>
+description <span class="token string">"Hostname for this system"</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>leaf-list：一系列的leaf节点；</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//一系列leaf节点,这些节点都是用来domain-search的</span></span><br><span class="line">    <span class="comment">//节点都包含string类型数据</span></span><br><span class="line">    <span class="comment">//相当于数组</span></span><br><span class="line">    leaf-list domain-search &#123;</span><br><span class="line">    type string;</span><br><span class="line">    description <span class="string">&quot;List of domain names to search&quot;</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//一系列leaf节点,这些节点都是用来domain-search的</span>
+    <span class="token comment">//节点都包含string类型数据</span>
+    <span class="token comment">//相当于数组</span>
+    leaf<span class="token operator">-</span>list domain<span class="token operator">-</span>search <span class="token punctuation">&#123;</span>
+    type string<span class="token punctuation">;</span>
+    description <span class="token string">"List of domain names to search"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>container:没有值,专门用于把相关的节点归纳到一个subtree下面,可以包括任何类型\任何数量子节点:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//container类型的system节点包含container类型的login节点</span></span><br><span class="line">   <span class="comment">//container类型的login节点把leaf类型 message节点组成了一棵子树</span></span><br><span class="line">   container system &#123;</span><br><span class="line">   	container login &#123;</span><br><span class="line">   		leaf message &#123;</span><br><span class="line">   			type string;</span><br><span class="line">   			description<span class="string">&quot;Message given at start of login session&quot;</span>;</span><br><span class="line">   			&#125;</span><br><span class="line">   		&#125;</span><br><span class="line">   	&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//container类型的system节点包含container类型的login节点</span>
+   <span class="token comment">//container类型的login节点把leaf类型 message节点组成了一棵子树</span>
+   container system <span class="token punctuation">&#123;</span>
+   	container login <span class="token punctuation">&#123;</span>
+   		leaf message <span class="token punctuation">&#123;</span>
+   			type string<span class="token punctuation">;</span>
+   			description<span class="token string">"Message given at start of login session"</span><span class="token punctuation">;</span>
+   			<span class="token punctuation">&#125;</span>
+   		<span class="token punctuation">&#125;</span>
+   	<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li>list:由一个key的leaf节点唯一确定,能定义多种key leafs,能包含任意类型\任意数目子节点:</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//名为user的list,由名为name的leaf节点唯一确定</span></span><br><span class="line">    <span class="comment">//user里面还包括其他leaf</span></span><br><span class="line">    list user &#123;</span><br><span class="line">    key <span class="string">&quot;name&quot;</span>;</span><br><span class="line">    leaf name &#123;</span><br><span class="line">    type string;</span><br><span class="line">    &#125;</span><br><span class="line">    leaf full-name &#123;</span><br><span class="line">    type string;</span><br><span class="line">    &#125;</span><br><span class="line">    leaf class &#123;</span><br><span class="line">    type string;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//名为user的list,由名为name的leaf节点唯一确定</span>
+    <span class="token comment">//user里面还包括其他leaf</span>
+    list user <span class="token punctuation">&#123;</span>
+    key <span class="token string">"name"</span><span class="token punctuation">;</span>
+    leaf name <span class="token punctuation">&#123;</span>
+    type string<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    leaf full<span class="token operator">-</span>name <span class="token punctuation">&#123;</span>
+    type string<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    leaf <span class="token keyword">class</span> <span class="token punctuation">&#123;</span>
+    type string<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li>上述四种节点可以组成简单的示例module:</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Contents of \&quot;acme-system.yang\&quot;</span></span><br><span class="line">    <span class="keyword">module</span> acme-system &#123;</span><br><span class="line">    namespace \<span class="string">&quot;http://acme.example.com/system\&quot;;</span></span><br><span class="line"><span class="string">    prefix \&quot;acme\&quot;;</span></span><br><span class="line"><span class="string">    organization \&quot;ACME Inc.\&quot;;</span></span><br><span class="line"><span class="string">    contact \&quot;joe@acme.example.com\&quot;;</span></span><br><span class="line"><span class="string">    description</span></span><br><span class="line"><span class="string">    \&quot;The module for entities implementing the ACME system.\&quot;;</span></span><br><span class="line"><span class="string">    revision 2007-06-09 &#123;</span></span><br><span class="line"><span class="string">    description \&quot;Initial revision.\&quot;;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    container system &#123;</span></span><br><span class="line"><span class="string">    	leaf host-name &#123;</span></span><br><span class="line"><span class="string">    	type string;</span></span><br><span class="line"><span class="string">    	description \&quot;Hostname for this system\&quot;;</span></span><br><span class="line"><span class="string">    	&#125;</span></span><br><span class="line"><span class="string">    	leaf-list domain-search &#123;</span></span><br><span class="line"><span class="string">    	type string;</span></span><br><span class="line"><span class="string">    	description \&quot;List of domain names to search\&quot;;</span></span><br><span class="line"><span class="string">    	&#125;</span></span><br><span class="line"><span class="string">    	container login &#123;</span></span><br><span class="line"><span class="string">    		leaf message &#123;</span></span><br><span class="line"><span class="string">    		type string;</span></span><br><span class="line"><span class="string">    		description&quot;</span>Message given at start of login session\<span class="string">&quot;;</span></span><br><span class="line"><span class="string">    		&#125;</span></span><br><span class="line"><span class="string">    		list user &#123;</span></span><br><span class="line"><span class="string">    			key \&quot;name\&quot;;</span></span><br><span class="line"><span class="string">    			leaf name &#123;</span></span><br><span class="line"><span class="string">    			type string;</span></span><br><span class="line"><span class="string">    			&#125;</span></span><br><span class="line"><span class="string">    			leaf full-name &#123;</span></span><br><span class="line"><span class="string">    			type string;</span></span><br><span class="line"><span class="string">    			&#125;</span></span><br><span class="line"><span class="string">    			leaf class &#123;</span></span><br><span class="line"><span class="string">    			type string;</span></span><br><span class="line"><span class="string">    			&#125;</span></span><br><span class="line"><span class="string">    		&#125;</span></span><br><span class="line"><span class="string">    	&#125;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string"> &#125;</span></span><br></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// Contents of \"acme-system.yang\"</span>
+    <span class="token keyword">module</span> <span class="token namespace">acme</span><span class="token operator">-</span>system <span class="token punctuation">&#123;</span>
+    namespace \"http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>acme<span class="token punctuation">.</span>example<span class="token punctuation">.</span>com<span class="token operator">/</span>system\"<span class="token punctuation">;</span>
+    prefix \"acme\"<span class="token punctuation">;</span>
+    organization \"ACME <span class="token class-name">Inc</span><span class="token punctuation">.</span>\"<span class="token punctuation">;</span>
+    contact \"joe<span class="token annotation punctuation">@acme.example.com</span>\"<span class="token punctuation">;</span>
+    description
+    \"<span class="token class-name">The</span> <span class="token keyword">module</span> <span class="token keyword">for</span> entities implementing the ACME system<span class="token punctuation">.</span>\"<span class="token punctuation">;</span>
+    revision <span class="token number">2007</span><span class="token operator">-</span><span class="token number">06</span><span class="token operator">-</span><span class="token number">09</span> <span class="token punctuation">&#123;</span>
+    description \"<span class="token class-name">Initial</span> revision<span class="token punctuation">.</span>\"<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    container system <span class="token punctuation">&#123;</span>
+    	leaf host<span class="token operator">-</span>name <span class="token punctuation">&#123;</span>
+    	type string<span class="token punctuation">;</span>
+    	description \"<span class="token class-name">Hostname</span> <span class="token keyword">for</span> <span class="token keyword">this</span> system\"<span class="token punctuation">;</span>
+    	<span class="token punctuation">&#125;</span>
+    	leaf<span class="token operator">-</span>list domain<span class="token operator">-</span>search <span class="token punctuation">&#123;</span>
+    	type string<span class="token punctuation">;</span>
+    	description \"<span class="token class-name">List</span> of domain names <span class="token keyword">to</span> <span class="token namespace">search</span>\"<span class="token punctuation">;</span>
+    	<span class="token punctuation">&#125;</span>
+    	container login <span class="token punctuation">&#123;</span>
+    		leaf message <span class="token punctuation">&#123;</span>
+    		type string<span class="token punctuation">;</span>
+    		description"<span class="token class-name">Message</span> given at start of login session\"<span class="token punctuation">;</span>
+    		<span class="token punctuation">&#125;</span>
+    		list user <span class="token punctuation">&#123;</span>
+    			key \"name\"<span class="token punctuation">;</span>
+    			leaf name <span class="token punctuation">&#123;</span>
+    			type string<span class="token punctuation">;</span>
+    			<span class="token punctuation">&#125;</span>
+    			leaf full<span class="token operator">-</span>name <span class="token punctuation">&#123;</span>
+    			type string<span class="token punctuation">;</span>
+    			<span class="token punctuation">&#125;</span>
+    			leaf <span class="token keyword">class</span> <span class="token punctuation">&#123;</span>
+    			type string<span class="token punctuation">;</span>
+    			<span class="token punctuation">&#125;</span>
+    		<span class="token punctuation">&#125;</span>
+    	<span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+ <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 <h4 id="YANG能定义RPC-Remote-Procedure-Call-远程过程调用"><a href="#YANG能定义RPC-Remote-Procedure-Call-远程过程调用" class="headerlink" title="YANG能定义RPC(Remote Procedure Call, 远程过程调用);"></a>YANG能定义RPC(Remote Procedure Call, 远程过程调用);</h4><ul>
 <li><p>定义操作名字，输入参数，和输出参数:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义远程调用activate-software-image</span></span><br><span class="line"><span class="comment">//输入的一个string类型的 image-name</span></span><br><span class="line"><span class="comment">//期望得到一个string类型的输出status</span></span><br><span class="line">rpc activate-software-image &#123;</span><br><span class="line">input &#123;</span><br><span class="line">leaf image-name &#123;</span><br><span class="line">type string;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">output &#123;</span><br><span class="line">leaf status &#123;</span><br><span class="line">type string;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//定义远程调用activate-software-image</span>
+<span class="token comment">//输入的一个string类型的 image-name</span>
+<span class="token comment">//期望得到一个string类型的输出status</span>
+rpc activate<span class="token operator">-</span>software<span class="token operator">-</span>image <span class="token punctuation">&#123;</span>
+input <span class="token punctuation">&#123;</span>
+leaf image<span class="token operator">-</span>name <span class="token punctuation">&#123;</span>
+type string<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+output <span class="token punctuation">&#123;</span>
+leaf status <span class="token punctuation">&#123;</span>
+type string<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>Helloworld.yang被解读为：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//helloworld模块中定义了一次名为hello-world的rpc调用</span></span><br><span class="line"><span class="comment">//输入是string类型的name</span></span><br><span class="line"><span class="comment">//输出是string类型的greeting</span></span><br><span class="line"><span class="comment">//能够与Postman请求的结果对应上</span></span><br><span class="line"><span class="keyword">module</span> helloworld &#123;</span><br><span class="line">    yang-version <span class="number">1.1</span>;</span><br><span class="line">    namespace <span class="string">&quot;urn:opendaylight:params:xml:ns:yang:helloworld&quot;</span>;</span><br><span class="line">    prefix <span class="string">&quot;helloworld&quot;</span>;</span><br><span class="line">    revision <span class="string">&quot;2017-08-30&quot;</span> &#123; <span class="comment">// TODO change revision to date of model creation</span></span><br><span class="line">        description <span class="string">&quot;Initial revision of helloworld model&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    rpc hello-world &#123;</span><br><span class="line">        input &#123;</span><br><span class="line">            leaf name &#123;</span><br><span class="line">                type string;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        output &#123;</span><br><span class="line">            leaf greeting &#123;</span><br><span class="line">                type string;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//helloworld模块中定义了一次名为hello-world的rpc调用</span>
+<span class="token comment">//输入是string类型的name</span>
+<span class="token comment">//输出是string类型的greeting</span>
+<span class="token comment">//能够与Postman请求的结果对应上</span>
+<span class="token keyword">module</span> <span class="token namespace">helloworld</span> <span class="token punctuation">&#123;</span>
+    yang<span class="token operator">-</span>version <span class="token number">1.1</span><span class="token punctuation">;</span>
+    namespace <span class="token string">"urn:opendaylight:params:xml:ns:yang:helloworld"</span><span class="token punctuation">;</span>
+    prefix <span class="token string">"helloworld"</span><span class="token punctuation">;</span>
+    revision <span class="token string">"2017-08-30"</span> <span class="token punctuation">&#123;</span> <span class="token comment">// TODO change revision to date of model creation</span>
+        description <span class="token string">"Initial revision of helloworld model"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    rpc hello<span class="token operator">-</span>world <span class="token punctuation">&#123;</span>
+        input <span class="token punctuation">&#123;</span>
+            leaf name <span class="token punctuation">&#123;</span>
+                type string<span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        output <span class="token punctuation">&#123;</span>
+            leaf greeting <span class="token punctuation">&#123;</span>
+                type string<span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <img src="https://cdn.jsdelivr.net/gh/Simonck33420/image/202208081950752.png" alt="image-20220804172512919" style="zoom:50%;" /></li>
 </ul>
@@ -392,8 +474,6 @@
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
-<script src="/js/third-party/search/local-search.js"></script>
 
 
 
