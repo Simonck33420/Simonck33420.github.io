@@ -22,23 +22,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="SDN BOLG">
-<meta property="og:url" content="http://example.com/index.html">
+    <meta name="description" content="L2switch​		本文记录了对标准L2switch和私有L2switch的阅读和解析. 基础概念 项目目的：基于MD-SAL架构实现基本的2层交换功能,包括对早先版本的重构,适合学习MD-SAL架构  参考文献:  L2switch源码分析（上） L2switch源码分析（下）   项目模块：      模块名 作用    Packet Handler 解码上送到控制器的报文并正确分发   L">
+<meta property="og:type" content="article">
+<meta property="og:title" content="L2switch">
+<meta property="og:url" content="http://example.com/2022/09/01/L2switch/index.html">
 <meta property="og:site_name" content="SDN BOLG">
+<meta property="og:description" content="L2switch​		本文记录了对标准L2switch和私有L2switch的阅读和解析. 基础概念 项目目的：基于MD-SAL架构实现基本的2层交换功能,包括对早先版本的重构,适合学习MD-SAL架构  参考文献:  L2switch源码分析（上） L2switch源码分析（下）   项目模块：      模块名 作用    Packet Handler 解码上送到控制器的报文并正确分发   L">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-01T01:42:36.370Z">
+<meta property="article:modified_time" content="2022-09-01T01:42:20.365Z">
 <meta property="article:author" content="Simonck">
+<meta property="article:tag" content="L2switch">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2022/09/01/L2switch/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/09/01/L2switch/","path":"2022/09/01/L2switch/","title":"L2switch"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>SDN BOLG</title>
+<title>L2switch | SDN BOLG</title>
   
 
 
@@ -69,7 +74,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">SDN BOLG</h1>
+      <p class="site-title">SDN BOLG</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -101,7 +106,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -114,6 +119,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#L2switch"><span class="nav-number">1.</span> <span class="nav-text">L2switch</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">基础概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Address-Tracker-%E6%9C%AA%E6%94%B9%E5%8A%A8"><span class="nav-number">1.2.</span> <span class="nav-text">Address Tracker(未改动)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Arp-Handler-%E6%9C%AA%E6%94%B9%E5%8A%A8"><span class="nav-number">1.3.</span> <span class="nav-text">Arp Handler(未改动)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Host-Tracker-%E6%9C%89%E5%B0%8F%E6%94%B9%E5%8A%A8"><span class="nav-number">1.4.</span> <span class="nav-text">Host Tracker(有小改动)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Packet-Handler-%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="nav-number">1.5.</span> <span class="nav-text">Packet Handler(主要功能)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#decoder-%E6%9C%AA%E6%94%B9%E5%8A%A8"><span class="nav-number">1.5.1.</span> <span class="nav-text">decoder(未改动):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PacketHandlerProvider%EF%BC%88%E6%9C%AA%E6%94%B9%E5%8A%A8%EF%BC%89%EF%BC%9A"><span class="nav-number">1.5.2.</span> <span class="nav-text">PacketHandlerProvider（未改动）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#blueprint-packet-handler-xml"><span class="nav-number">1.5.3.</span> <span class="nav-text">blueprint:packet-handler.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pom-xml-%E5%A2%9E%E5%8A%A0%E4%BA%86%E4%BE%9D%E8%B5%96%E9%A1%B9"><span class="nav-number">1.5.4.</span> <span class="nav-text">pom.xml:增加了依赖项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#control-%E5%A2%9E%E5%8A%A0"><span class="nav-number">1.5.5.</span> <span class="nav-text">control(增加):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#icfp-%E5%A2%9E%E5%8A%A0"><span class="nav-number">1.5.6.</span> <span class="nav-text">icfp(增加):</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -167,101 +173,17 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/01/Openflowplugin/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/202208091628825.jpg">
-      <meta itemprop="name" content="Simonck">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SDN BOLG">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | SDN BOLG">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/09/01/Openflowplugin/" class="post-title-link" itemprop="url">Openflowplugin</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-09-01 09:42:36 / 修改时间：09:40:34" itemprop="dateCreated datePublished" datetime="2022-09-01T09:42:36+08:00">2022-09-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/SDN/" itemprop="url" rel="index"><span itemprop="name">SDN</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Openflowplugin"><a href="#Openflowplugin" class="headerlink" title="Openflowplugin"></a>Openflowplugin</h1><p>​		本文记录了Openflowplugin项目的阅读和解析.</p>
-<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><ul>
-<li>参考文献<ul>
-<li><a target="_blank" rel="noopener" href="https://www.sdnlab.com/22486.html">OpenflowPlugin源码分析(一至八)</a></li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/01/L2switch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -275,13 +197,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | SDN BOLG">
+      <meta itemprop="name" content="L2switch | SDN BOLG">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/09/01/L2switch/" class="post-title-link" itemprop="url">L2switch</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          L2switch
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -314,7 +236,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="L2switch"><a href="#L2switch" class="headerlink" title="L2switch"></a>L2switch</h1><p>​		本文记录了对标准L2switch和私有L2switch的阅读和解析.</p>
+        <h1 id="L2switch"><a href="#L2switch" class="headerlink" title="L2switch"></a>L2switch</h1><p>​		本文记录了对标准L2switch和私有L2switch的阅读和解析.</p>
 <h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><ul>
 <li><p>项目目的：基于MD-SAL架构实现基本的2层交换功能,包括对早先版本的重构,适合学习MD-SAL架构</p>
 </li>
@@ -875,7 +797,6 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
 </tr>
 </tbody></table>
 
-      
     </div>
 
     
@@ -883,293 +804,24 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
+          <div class="post-tags">
+              <a href="/tags/L2switch/" rel="tag"># L2switch</a>
+          </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/01/Bug%E6%94%B6%E9%9B%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/202208091628825.jpg">
-      <meta itemprop="name" content="Simonck">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SDN BOLG">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | SDN BOLG">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/09/01/Bug%E6%94%B6%E9%9B%86/" class="post-title-link" itemprop="url">Bug收集</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-09-01 09:42:36 / 修改时间：09:36:43" itemprop="dateCreated datePublished" datetime="2022-09-01T09:42:36+08:00">2022-09-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/SDN/" itemprop="url" rel="index"><span itemprop="name">SDN</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Bug收集"><a href="#Bug收集" class="headerlink" title="Bug收集"></a>Bug收集</h1><p>​		本文整理收集了调试过程中遇到的Bug和对应的解决方法，供调试时参考.</p>
-<h3 id="不同package下同名方法供需错误"><a href="#不同package下同名方法供需错误" class="headerlink" title="不同package下同名方法供需错误"></a>不同package下同名方法供需错误</h3><p>​		在ODL中，由于版本更迭，许多不同名字的package中包括了相同名字的方法，在导入ODL包的过程中就有可能出现下图的错误，简单解释就是这里需要白字package中的方法（Required type）但是我们却导入了红字package中的方法（Provided）;唯一的<strong>解决办法</strong>:就是把涉及的package梳理清楚，把引用关系对应上，在LLDP2Controller实验中出现了这个错误,已解决.</p>
-<img src="https://fastly.jsdelivr.net/gh/Simonck33420/image/image-20220811200330375.png" alt="image-20220811200330375" style="zoom: 50%;" />
-
-<h3 id="findbugs-maven-plugin-x-x-x-check"><a href="#findbugs-maven-plugin-x-x-x-check" class="headerlink" title="findbugs-maven-plugin:x.x.x:check"></a>findbugs-maven-plugin:x.x.x:check</h3><p>​		maven编译过程中有可能会出现findbugs-maven-plugin:x.x.x:check报错,这是由于ODL项目默认继承了findbugs插件来检查工程可能出现的一些错误,我们编写的代码不符合插件规则就会报错,<strong>解决办法</strong>是:在…\impl\pom.xml文件中把findbugs-maven-plugin插件改为false,已解决.</p>
-<img src="https://fastly.jsdelivr.net/gh/Simonck33420/image/findbugs.jpg" alt="findbugs" style="zoom: 50%;" />
-
-<h3 id="mininet连不上karaf"><a href="#mininet连不上karaf" class="headerlink" title="mininet连不上karaf"></a>mininet连不上karaf</h3><ul>
-<li>在使用mininet配合实验的过程中,出现了在mininet能ping通宿主机的情况下无法连接到控制器的问题.经过分析,应该是使用项目原型模板生成的空项目骨架,不具备连接交换机的能力,需要找到ODL有关这一部分的代码依赖进来,controller\archetype下的模板都试过了,效果相同,<strong>暂未解决</strong></li>
-</ul>
-<h3 id="projectstructure有误"><a href="#projectstructure有误" class="headerlink" title="projectstructure有误"></a>projectstructure有误</h3><p>​		某些xxx.java文件比如LLDP2ControllerProvider不能正确被IDEA识别，一般的<strong>解决方法</strong>有,推荐由上至下排查:</p>
-<ul>
-<li><p>检查用IDEA打开项目时,是否打开的是跟.idea文件夹并列的项目,有时上层文件夹跟项目名一致,会出现打开错误</p>
-</li>
-<li><p>进入File-Project Structure-Modules重新设置一下包的mark</p>
-</li>
-<li><p>重启IDEA，然后重新编译安装项目</p>
-</li>
-<li><p>重启IDEA，使用maven-Reload All Maven Projects</p>
-</li>
-<li><p>清掉后台所有内容，重启电脑</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/09/OpenDayLight%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/202208091628825.jpg">
-      <meta itemprop="name" content="Simonck">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SDN BOLG">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | SDN BOLG">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/08/09/OpenDayLight%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">OpenDayLight学习笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-08-09 19:03:33" itemprop="dateCreated datePublished" datetime="2022-08-09T19:03:33+08:00">2022-08-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-09-01 09:41:52" itemprop="dateModified" datetime="2022-09-01T09:41:52+08:00">2022-09-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/SDN/" itemprop="url" rel="index"><span itemprop="name">SDN</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>​		本文记录了OpenDayLight的学习过程。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/08/09/OpenDayLight%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/09/%E5%B7%A5%E5%85%B7Utils/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/202208091628825.jpg">
-      <meta itemprop="name" content="Simonck">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SDN BOLG">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | SDN BOLG">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/08/09/%E5%B7%A5%E5%85%B7Utils/" class="post-title-link" itemprop="url">工具Utils</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-08-09 18:48:22" itemprop="dateCreated datePublished" datetime="2022-08-09T18:48:22+08:00">2022-08-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-26 19:20:41" itemprop="dateModified" datetime="2022-08-26T19:20:41+08:00">2022-08-26</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>​		本文记录了软件学习过程中用到的工具类知识点，比如数据交换格式、软件安装、环境配置、辅助工具等。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/08/09/%E5%B7%A5%E5%85%B7Utils/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/01/Bug%E6%94%B6%E9%9B%86/" rel="prev" title="Bug收集">
+                  <i class="fa fa-chevron-left"></i> Bug收集
+                </a>
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+            <div class="post-nav-item">
+                <a href="/2022/09/01/Openflowplugin/" rel="next" title="Openflowplugin">
+                  Openflowplugin <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
     </footer>
   </article>
 </div>
@@ -1177,9 +829,7 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
 
 
 
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
+
 
 </div>
   </main>

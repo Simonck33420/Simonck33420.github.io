@@ -45,7 +45,7 @@
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/image-20220811200330375.png">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/findbugs.jpg">
 <meta property="article:published_time" content="2022-08-09T11:03:33.833Z">
-<meta property="article:modified_time" content="2022-08-31T08:10:05.339Z">
+<meta property="article:modified_time" content="2022-09-01T01:41:52.823Z">
 <meta property="article:author" content="Simonck">
 <meta property="article:tag" content="ODL">
 <meta name="twitter:card" content="summary">
@@ -150,7 +150,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -161,7 +161,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -236,7 +236,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-31 16:10:05" itemprop="dateModified" datetime="2022-08-31T16:10:05+08:00">2022-08-31</time>
+      <time title="修改时间：2022-09-01 09:41:52" itemprop="dateModified" datetime="2022-09-01T09:41:52+08:00">2022-09-01</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1381,8 +1381,31 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
 
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**ControlProvider:  */</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ControlProvider</span><span class="token punctuation">&#123;</span>
+  <span class="token comment">/**成员对象*/</span>
+  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">DataBroker</span> dataService；
+  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">SalFlowService</span> salFlowService；
+  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">NotificationProviderService</span> notificationService；
+  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">PacketProcessingService</span> packetProcessingService；
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> PATH_MODE <span class="token operator">=</span> <span class="token number">1</span>；<span class="token comment">//0:源节点计算整条路径  1:各节点分别计算</span>
+    	<span class="token comment">//多态写法</span>
+  	<span class="token keyword">private</span> <span class="token class-name">Registration</span> initialFlowWriterListenerReg<span class="token punctuation">;</span>
+      <span class="token keyword">private</span> <span class="token class-name">Registration</span> arpHandlerRegistration<span class="token punctuation">;</span>
+      <span class="token keyword">private</span> <span class="token class-name">Registration</span> unicastArpHandlerRegistration<span class="token punctuation">;</span>
+      <span class="token keyword">private</span> <span class="token class-name">Registration</span> ipv4HandlerRegistration<span class="token punctuation">;</span>
+      <span class="token keyword">private</span> <span class="token class-name">Registration</span> c2cListenerRegistration<span class="token punctuation">;</span>
+      <span class="token keyword">private</span> <span class="token class-name">Registration</span> lldpListenerRegistration<span class="token punctuation">;</span>
+      <span class="token keyword">private</span> <span class="token class-name">Registration</span> segmentedPathProcessorRegistration<span class="token punctuation">;</span>
+      <span class="token keyword">private</span> <span class="token class-name">Registration</span> icfpListenerReg<span class="token punctuation">;</span>
   
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">Icfpv2Target</span> icfpv2Target<span class="token punctuation">;</span>
+  <span class="token comment">/**构造器*/</span>
+  <span class="token comment">/**成员方法*/</span>
+  	<span class="token comment">//从文件中读取系统配置</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">readconf</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+     
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**CustomPacketDispatcher: 自定义的分发包方法,不同需求的发包方法都定义在这 */</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CustomPacketDispatcher</span><span class="token punctuation">&#123;</span>
@@ -1474,6 +1497,9 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2022/09/01/Bug%E6%94%B6%E9%9B%86/" rel="next" title="Bug收集">
+                  Bug收集 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
