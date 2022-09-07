@@ -30,7 +30,7 @@
 <meta property="og:description" content="​		本文记录了对标准L2switch和私有L2switch的阅读和解析.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-01T01:42:36.370Z">
-<meta property="article:modified_time" content="2022-09-01T02:26:44.583Z">
+<meta property="article:modified_time" content="2022-09-02T09:14:34.945Z">
 <meta property="article:author" content="Simonck">
 <meta property="article:tag" content="L2switch">
 <meta name="twitter:card" content="summary">
@@ -119,7 +119,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Address-Tracker-%E6%9C%AA%E6%94%B9%E5%8A%A8"><span class="nav-number">2.</span> <span class="nav-text">Address Tracker(未改动)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Arp-Handler-%E6%9C%AA%E6%94%B9%E5%8A%A8"><span class="nav-number">3.</span> <span class="nav-text">Arp Handler(未改动)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Host-Tracker-%E6%9C%89%E5%B0%8F%E6%94%B9%E5%8A%A8"><span class="nav-number">4.</span> <span class="nav-text">Host Tracker(有小改动)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Packet-Handler-%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="nav-number">5.</span> <span class="nav-text">Packet Handler(主要功能)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#decoder-%E6%9C%AA%E6%94%B9%E5%8A%A8"><span class="nav-number">5.1.</span> <span class="nav-text">decoder(未改动):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PacketHandlerProvider%EF%BC%88%E6%9C%AA%E6%94%B9%E5%8A%A8%EF%BC%89%EF%BC%9A"><span class="nav-number">5.2.</span> <span class="nav-text">PacketHandlerProvider（未改动）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#blueprint-packet-handler-xml"><span class="nav-number">5.3.</span> <span class="nav-text">blueprint:packet-handler.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pom-xml-%E5%A2%9E%E5%8A%A0%E4%BA%86%E4%BE%9D%E8%B5%96%E9%A1%B9"><span class="nav-number">5.4.</span> <span class="nav-text">pom.xml:增加了依赖项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#control-%E5%A2%9E%E5%8A%A0"><span class="nav-number">5.5.</span> <span class="nav-text">control(增加):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#icfp-%E5%A2%9E%E5%8A%A0"><span class="nav-number">5.6.</span> <span class="nav-text">icfp(增加):</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Address-Tracker-%E6%9C%AA%E6%94%B9%E5%8A%A8"><span class="nav-number">2.</span> <span class="nav-text">Address Tracker(未改动)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Arp-Handler-%E6%9C%AA%E6%94%B9%E5%8A%A8"><span class="nav-number">3.</span> <span class="nav-text">Arp Handler(未改动)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#core"><span class="nav-number">3.1.</span> <span class="nav-text">core:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flow"><span class="nav-number">3.2.</span> <span class="nav-text">flow:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inventory%EF%BC%9A"><span class="nav-number">3.3.</span> <span class="nav-text">inventory：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Host-Tracker-%E6%9C%89%E5%B0%8F%E6%94%B9%E5%8A%A8"><span class="nav-number">4.</span> <span class="nav-text">Host Tracker(有小改动)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#internal"><span class="nav-number">4.1.</span> <span class="nav-text">internal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inventory"><span class="nav-number">4.2.</span> <span class="nav-text">inventory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#util"><span class="nav-number">4.3.</span> <span class="nav-text">util</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Packet-Handler-%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="nav-number">5.</span> <span class="nav-text">Packet Handler(主要功能)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#decoder-%E6%9C%AA%E6%94%B9%E5%8A%A8"><span class="nav-number">5.1.</span> <span class="nav-text">decoder(未改动):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PacketHandlerProvider%EF%BC%88%E6%9C%AA%E6%94%B9%E5%8A%A8%EF%BC%89%EF%BC%9A"><span class="nav-number">5.2.</span> <span class="nav-text">PacketHandlerProvider（未改动）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#blueprint-packet-handler-xml"><span class="nav-number">5.3.</span> <span class="nav-text">blueprint:packet-handler.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pom-xml-%E5%A2%9E%E5%8A%A0%E4%BA%86%E4%BE%9D%E8%B5%96%E9%A1%B9"><span class="nav-number">5.4.</span> <span class="nav-text">pom.xml:增加了依赖项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#control-%E5%A2%9E%E5%8A%A0"><span class="nav-number">5.5.</span> <span class="nav-text">control(增加):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#icfp-%E5%A2%9E%E5%8A%A0"><span class="nav-number">5.6.</span> <span class="nav-text">icfp(增加):</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -212,9 +212,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-09-01 09:42:36 / 修改时间：10:26:44" itemprop="dateCreated datePublished" datetime="2022-09-01T09:42:36+08:00">2022-09-01</time>
+      <time title="创建时间：2022-09-01 09:42:36" itemprop="dateCreated datePublished" datetime="2022-09-01T09:42:36+08:00">2022-09-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-09-02 17:14:34" itemprop="dateModified" datetime="2022-09-02T17:14:34+08:00">2022-09-02</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -246,9 +252,8 @@
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.sdnlab.com/18285.html">L2switch源码分析（上）</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.sdnlab.com/18293.html">L2switch源码分析（下）</a></li>
+<li><a target="_blank" rel="noopener" href="https://heroacool.blog.csdn.net/article/details/51014824?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-51014824-blog-124864695.pc_relevant_default&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-51014824-blog-124864695.pc_relevant_default&utm_relevant_index=2">Dijkstra算法</a></li>
 </ul>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://heroacool.blog.csdn.net/article/details/51014824?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-51014824-blog-124864695.pc_relevant_default&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-51014824-blog-124864695.pc_relevant_default&utm_relevant_index=2">Dijkstra算法</a></p>
 </li>
 <li><p>项目模块：</p>
 </li>
@@ -285,7 +290,7 @@
 <td align="center">根据网络流量下发流表,依赖于上边模块的处理结果</td>
 </tr>
 </tbody></table>
-<h2 id="Address-Tracker-未改动"><a href="#Address-Tracker-未改动" class="headerlink" title="Address Tracker(未改动)"></a>Address Tracker(未改动)</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/*AddressObservationWriter:根据索引NodeConnectorRef添加mac地址和ip地址*/</span>
+<h2 id="Address-Tracker-未改动"><a href="#Address-Tracker-未改动" class="headerlink" title="Address Tracker(未改动)"></a>Address Tracker(未改动)</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/*AddressObservationWriter:添加mac地址和ip地址,以及节点的连接关系nodeConnectorRef*/</span>
 <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addAddress</span><span class="token punctuation">(</span><span class="token class-name">MacAddress</span> macAddress<span class="token punctuation">,</span> <span class="token class-name">IpAddress</span> ipAddress<span class="token punctuation">,</span> <span class="token class-name">NodeConnectorRef</span> nodeConnectorRef<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">return</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
@@ -326,10 +331,7 @@ addressObservationWriter<span class="token punctuation">.</span><span class="tok
 <td align="center"><code>InventoryReader</code></td>
 </tr>
 </tbody></table>
-<ul>
-<li>core:</li>
-</ul>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**ArpHandlerProvider:初始化ArpHandler模块(入口),关闭ArpHandler模块
+<h3 id="core"><a href="#core" class="headerlink" title="core:"></a>core:</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**ArpHandlerProvider:初始化ArpHandler模块(入口),关闭ArpHandler模块
 主要关注Init(),这里判断了ARP是Proactive模式还是Reactive模式(主动与被动模式)
 Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文上送至控制器的流表
 前者调用 ProactiveFloodFlowWriter 后者调用InitialFlowWriter
@@ -352,20 +354,53 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
 <span class="token comment">/**ProactiveFloodFlowWriter:用于L2Switch的proactive模式。在这种模式下，
 造成洪泛的流表自动写入每个交换机，发送到控制器的(traffic)流量更少。*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<ul>
-<li>flow:</li>
-</ul>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**InitialFlowWriter:给所有交换机下发将ARP数据包发送到控制器的流表,
+<h3 id="flow"><a href="#flow" class="headerlink" title="flow:"></a>flow:</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**InitialFlowWriter:给所有交换机下发将ARP数据包发送到控制器的流表,
 与core.ProactiveFloodFlowWriter相对,有新交换机上线时会自动识别并下发*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<ul>
-<li>inventory：</li>
-</ul>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**InventoryReader:用于读datastore数据
+<h3 id="inventory："><a href="#inventory：" class="headerlink" title="inventory："></a>inventory：</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**InventoryReader:用于读datastore数据
     详解见packethandler.xx.control.inventory.InventoryReader*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <h2 id="Host-Tracker-有小改动"><a href="#Host-Tracker-有小改动" class="headerlink" title="Host Tracker(有小改动)"></a>Host Tracker(有小改动)</h2><p>主机上线,处理,完成之后把结果告诉私有模块.</p>
-<h2 id="Packet-Handler-主要功能"><a href="#Packet-Handler-主要功能" class="headerlink" title="Packet Handler(主要功能)"></a>Packet Handler(主要功能)</h2><p>​		Packet Handler负责处理控制器涉及的大部分报文,私有功能的逻辑主要在这里定义.相比标准结构,增加了control、icfp两个文件夹,共有decoder(解码器)文件夹和PacketHandlerProvider类,重点关注control和icfp文件夹,以及私有项目对blueprint的改动,对pom.xml文件的改动.</p>
+<h3 id="internal"><a href="#internal" class="headerlink" title="internal"></a>internal</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**internal:
+----ConcurrentClusterAwareHostHashMap:
+----ConcurrentClusterAwareLinkHashMap:
+----HostTrackerImpl:监听host上线后处理，然后通过notification通知私有模块
+----HostTrackerOperation:
+----OperationProcessor:偏底层的实现,跟ODL的事务\事务链有关,在这个模块里向其它类提供服务
+----SimpleAddressObserver:
+*/</span>
+<span class="token comment">/**OperationProcessor: */</span> 
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">OperationProcessor</span> <span class="token keyword">implements</span> <span class="token class-name">AutoCloseable</span><span class="token punctuation">,</span> <span class="token class-name">Runnable</span><span class="token punctuation">,</span> <span class="token class-name">TransactionChainListener</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">/**成员对象*/</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> NUM_RETRY_SUBMIT <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> OPS_PER_CHAIN <span class="token operator">=</span> <span class="token number">256</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> QUEUE_DEPTH <span class="token operator">=</span> <span class="token number">512</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Logger</span> LOG <span class="token operator">=</span> <span class="token class-name">LoggerFactory</span><span class="token punctuation">.</span><span class="token function">getLogger</span><span class="token punctuation">(</span><span class="token class-name">OperationProcessor</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">DataBroker</span> dataBroker<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">BlockingQueue</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">HostTrackerOperation</span><span class="token punctuation">></span></span> queue<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">AtomicReference</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">BindingTransactionChain</span><span class="token punctuation">></span></span> transactionChain <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AtomicReference</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">/**构造器*/</span>
+    <span class="token comment">/**成员方法*/</span>
+    <span class="token function">onTransactionChainFailed</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">onTransactionChainSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">chainFailure</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">enqueueOperation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">submitTransaction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">clearQueue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/**ConcurrentClusterAwareHostHashMap: */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConcurrentClusterAwareHostHashMap</span> <span class="token punctuation">&#123;</span>
+  
+<span class="token punctuation">&#125;</span>
+
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="inventory"><a href="#inventory" class="headerlink" title="inventory"></a>inventory</h3><h3 id="util"><a href="#util" class="headerlink" title="util"></a>util</h3><h2 id="Packet-Handler-主要功能"><a href="#Packet-Handler-主要功能" class="headerlink" title="Packet Handler(主要功能)"></a>Packet Handler(主要功能)</h2><p>​		Packet Handler负责处理控制器涉及的大部分报文,私有功能的逻辑主要在这里定义.相比标准结构,增加了control、icfp两个文件夹,共有decoder(解码器)文件夹和PacketHandlerProvider类,重点关注control和icfp文件夹,以及私有项目对blueprint的改动,对pom.xml文件的改动.</p>
 <h3 id="decoder-未改动"><a href="#decoder-未改动" class="headerlink" title="decoder(未改动):"></a>decoder(未改动):</h3><table>
 <thead>
 <tr>
@@ -694,25 +729,42 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
   <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">></span></span> ALL_CHANNEL_LIST <span class="token operator">=</span> <span class="token class-name">Stream</span><span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">toList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**listener:
-------ARPlistener:
-------C2CPacketListener:
-------HostInfoListener:
-------LldpListener:
-------SegmentedPathCalculationListener:
-------TopoChangeNotificationListener:
-*/</span>
-<span class="token comment">/**ARPlistener: */</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**listener:这个package大部分都在用的,不只是监听器,还包括了监听到事件后进一步采取的基本措施,
+				比如:发报文\下流表\存信息等
+------ARPlistener:监听ARP报文,并对收到的ARP报文进行解析并发送
+------C2CPacketListener:监听C2C报文,并对收到的报文分情况判断,解析,再发送出去,其中的反向流表已经没有这个概念了,
+		 由于代码调整,目前只有组播流表下发还在使用
+------HostInfoListener:监听主机上线,发现上线后获取主机的信息,存储主机的信息,再完成洪泛主机的存在,
+		 下发必要流表等功能,包括免费ARP报文;主机下线后删除相关的信息,以及处理其他,SayLink代表Link发生变动
+------LldpListener:收到LLDP报文,分析\过滤掉不要的报文,处理LLDP报文发现的连接关系,生成流表之类的
+------SegmentedPathCalculationListener:计算分段路径
+------TopoChangeNotificationListener:监听拓扑变化,处理拓扑变化带来的后续动作,增删节点\设备,洪泛信息,重算路径等等
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**pathfinding:
-------
-------
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+------ExtPathFinder:
+------InnerPathFinder:
+*/</span>
+<span class="token comment">/**ExtPathFinder: 计算外部路径*/</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ExtPathFinder</span><span class="token punctuation">&#123;</span>
+  <span class="token comment">/**只包括一个成员方法:计算符合ruleList规则的node_map节点中,从start_node_id到end_node_id的路径,
+       返回的结果是Path_Result类型的,包括开始节点、结束节点、距离、路径，共四个属性*/</span>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">Path_Result</span> <span class="token function">calculate</span><span class="token punctuation">(</span><span class="token keyword">int</span> start_node_id<span class="token punctuation">,</span><span class="token keyword">int</span> end_node_id<span class="token punctuation">,</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">></span></span> ruleList<span class="token punctuation">,</span>
+                                      					<span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">,</span><span class="token class-name">T_Node</span><span class="token punctuation">></span></span> node_map<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token comment">/**这里的原理就是迪杰特斯拉算法,ruleList相当于是计算时的限制条件,后续要详细梳理以下它的实现过程*/</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/**InnerPathFinder: 计算内部路径*/</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">InnerPathFinder</span><span class="token punctuation">&#123;</span>
+   <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">Path_Result</span> <span class="token function">calculate</span><span class="token punctuation">(</span><span class="token keyword">int</span> start_node_id<span class="token punctuation">,</span><span class="token keyword">int</span> end_node_id<span class="token punctuation">,</span><span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">,</span><span class="token class-name">T_Node_InCar</span><span class="token punctuation">></span></span> node_map<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+   <span class="token comment">/**思路跟外部路径类似,但是涉及的计算对象和条件不同,也是返回一个Path_Result类型结果*/</span>
+   <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**processor：
-------
--------
+------Ipv4Handler:
+------Ipv4Processor:
 */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**service:
@@ -750,12 +802,13 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
   <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">Icfpv2Target</span> icfpv2Target<span class="token punctuation">;</span>
   <span class="token comment">/**构造器*/</span>
   <span class="token comment">/**成员方法*/</span>
-  	<span class="token comment">//从文件中读取系统配置</span>
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">readconf</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-     
-  <span class="token punctuation">&#125;</span>
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  	<span class="token comment">//从文件中读取系统配置,conf.json</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">readconf</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  	<span class="token comment">//初始化:把该模块涉及到的对象\多态全new出来,并传给成员对象,包括调用注册类Registration多态实现类等</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  	<span class="token comment">//关闭</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**CustomPacketDispatcher: 自定义的分发包方法,不同需求的发包方法都定义在这 */</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CustomPacketDispatcher</span><span class="token punctuation">&#123;</span>
