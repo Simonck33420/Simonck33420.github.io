@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/vmware三种网卡模式.png">
 <meta property="article:published_time" content="2022-08-09T10:48:22.391Z">
-<meta property="article:modified_time" content="2022-09-07T02:36:25.606Z">
+<meta property="article:modified_time" content="2022-09-07T03:27:43.285Z">
 <meta property="article:author" content="Simonck">
 <meta property="article:tag" content="Utils">
 <meta name="twitter:card" content="summary">
@@ -121,7 +121,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">数据格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON"><span class="nav-number">1.1.</span> <span class="nav-text">JSON</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Maven"><span class="nav-number">2.</span> <span class="nav-text">Maven</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">2.1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pom-xml%E8%A7%A3%E6%9E%90"><span class="nav-number">2.2.</span> <span class="nav-text">pom.xml解析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IDEA"><span class="nav-number">3.</span> <span class="nav-text">IDEA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">3.1.</span> <span class="nav-text">基本概念</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ODL"><span class="nav-number">4.</span> <span class="nav-text">ODL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-1"><span class="nav-number">4.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#blueprint"><span class="nav-number">4.2.</span> <span class="nav-text">blueprint</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#netty"><span class="nav-number">4.3.</span> <span class="nav-text">netty</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#karaf"><span class="nav-number">4.4.</span> <span class="nav-text">karaf</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">5.</span> <span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">5.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VMware"><span class="nav-number">5.2.</span> <span class="nav-text">VMware</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">数据格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON"><span class="nav-number">1.1.</span> <span class="nav-text">JSON</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XML"><span class="nav-number">1.2.</span> <span class="nav-text">XML</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Maven"><span class="nav-number">2.</span> <span class="nav-text">Maven</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">2.1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pom-xml%E8%A7%A3%E6%9E%90"><span class="nav-number">2.2.</span> <span class="nav-text">pom.xml解析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IDEA"><span class="nav-number">3.</span> <span class="nav-text">IDEA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">3.1.</span> <span class="nav-text">基本概念</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ODL"><span class="nav-number">4.</span> <span class="nav-text">ODL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-1"><span class="nav-number">4.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#blueprint"><span class="nav-number">4.2.</span> <span class="nav-text">blueprint</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#netty"><span class="nav-number">4.3.</span> <span class="nav-text">netty</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#karaf"><span class="nav-number">4.4.</span> <span class="nav-text">karaf</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">5.</span> <span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">5.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VMware"><span class="nav-number">5.2.</span> <span class="nav-text">VMware</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -222,7 +222,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-09-07 10:36:25" itemprop="dateModified" datetime="2022-09-07T10:36:25+08:00">2022-09-07</time>
+      <time title="修改时间：2022-09-07 11:27:43" itemprop="dateModified" datetime="2022-09-07T11:27:43+08:00">2022-09-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -250,90 +250,145 @@
 
 
 <h2 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h2><h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><ul>
+<li><p>JSON: JavaSctipt Object Notation,JavaSctipt 对象表示法</p>
+</li>
 <li><p>[[图灵程序设计丛书].JSON必知必会](<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1UoHP8BiumEt70aSVyhv7dQ">https://pan.baidu.com/s/1UoHP8BiumEt70aSVyhv7dQ</a><br>提取码：3ir5 )：基础语法1-4章</p>
-<pre class="line-numbers language-json" data-language="json"><code class="language-json">  ```
-  
-  
-
-### XML
-
-* <span class="token punctuation">[</span>XML入门经典（第<span class="token number">5</span>版）<span class="token punctuation">]</span>(https<span class="token operator">:</span><span class="token comment">//pan.baidu.com/s/1l8uOjScZA3tFntH4UTZi-A </span>
-  提取码：gmy9 )基础语法：<span class="token number">2</span><span class="token number">-4</span>章
-* <span class="token punctuation">[</span>XML基础教程（第二版）<span class="token punctuation">]</span>(https<span class="token operator">:</span><span class="token comment">//pan.baidu.com/s/1PLCv0MfDOhE7eYo9OXAykg </span>
-  提取码：qqxx <span class="token punctuation">[</span>)
-* <span class="token punctuation">[</span>W3school<span class="token operator">:</span>xml<span class="token punctuation">]</span>(https<span class="token operator">:</span><span class="token comment">//www.w3school.com.cn/xml/index.asp)</span>
-* <span class="token punctuation">[</span>XML 教程<span class="token punctuation">]</span>(https<span class="token operator">:</span><span class="token comment">//www.runoob.com/xml/xml-tutorial.html)</span>
-
-```xml
-&lt;!--xml序言+独立声明-->&lt;!--注意linux还是Windows格式的换行符-->
-&lt;?xml version=<span class="token string">"1.0"</span> encoding=<span class="token string">"UTF-8"</span> standalone=<span class="token string">"yes"</span>?>
-&lt;!--创建元素的方式-->
-	&lt;!--标准元素<span class="token punctuation">,</span>有内容-->
-	&lt;myelement>code&lt;/myelement>
-	&lt;!--自封闭元素<span class="token punctuation">,</span>没有内容-->
-	&lt;myelement/>
-&lt;!--四种命名方式-->
-	&lt;!--大驼峰-->
-	&lt;MyElement/>
-	&lt;!--小驼峰-->
-	&lt;myElement/>
-	&lt;!--下划线-->
-	&lt;my_element/>
-	&lt;!--连字符-->
-	&lt;my-element/>
-&lt;!--一个文档只能有一个根元素-->
-&lt;root>
-&lt;!--元素中可以添加属性<span class="token operator">:</span>属性就是(名称-值)-->
-	&lt;myelement myfirstattribute=<span class="token string">"one"</span> mysecondattribute='two' mythirdattribute=' '>&lt;/myelement>
-&lt;!--元素和属性均可包括文本-->
-	&lt;myelement>Here is a test&lt;/myelement>
-&lt;!--元素和属性都可以用来包装数据-->
-	&lt;!--元素-->
-	&lt;user>
-		&lt;firstname>Yu-Ang&lt;/firstname>
-		&lt;lastname>ZHU&lt;/lastname>
-	&lt;/user>
-	&lt;!--属性-->
-	&lt;user firstname=<span class="token string">"Yu-Ang"</span> lastname=<span class="token string">"ZHU"</span> />
-	&lt;user firstname=<span class="token string">"Yu-Ang"</span> lastname=<span class="token string">"ZHU"</span>>&lt;/user>
-&lt;!--处理指令-->
-&lt;?xml-stylesheet type=<span class="token string">"text/xsl"</span> href=<span class="token string">"appUsers.xslt"</span>?>
-&lt;!--CDATA节<span class="token punctuation">,</span>允许在xml文件中插入纯文本-->
-&lt;!--格式<span class="token operator">:</span> &lt;!<span class="token punctuation">[</span>CDATA<span class="token punctuation">[</span>文本内容<span class="token punctuation">]</span><span class="token punctuation">]</span>>  -->
-	&lt;user>
-	&lt;!<span class="token punctuation">[</span>CDATA<span class="token punctuation">[</span>这里写的内容会被当做纯文本处理<span class="token punctuation">]</span><span class="token punctuation">]</span>>
-	&lt;/user>
-&lt;!--通过向元素中添加特殊的属性来决定如何处理空白符-->
-	&lt;!--保留空白符-->
-	&lt;user xml<span class="token operator">:</span>space=<span class="token string">"preserve"</span>/>
-	&lt;!--默认处理空白符-->
-	&lt;user xml<span class="token operator">:</span>space=<span class="token string">"default"</span>/>
-&lt;!--命名空间：理解为Java中的package<span class="token punctuation">,</span>大小写敏感-->
-&lt;!--命名空间：建议使用URL或者URN命名规范，这两个合称URI-->
-	&lt;!--URL-->
-	<span class="token punctuation">[</span>Scheme<span class="token punctuation">]</span><span class="token operator">:</span><span class="token comment">//[Domain][:Port]/[Path]?[QueryString]#[FragmentId]</span>
-	&lt;!--URN-->
-	urn<span class="token operator">:</span><span class="token punctuation">[</span>namespace identifier<span class="token punctuation">]</span><span class="token operator">:</span><span class="token punctuation">[</span>namespace specific string<span class="token punctuation">]</span>
-	&lt;!--声明命名空间的方法一：默认命名空间<span class="token punctuation">,</span>希望整个文档都属于这个空间-->
-	&lt;root xmlns = <span class="token string">"http://wrox.com/namespace/app/config"</span>>
-		&lt;firstname>Yu-Ang&lt;/firstname>
-		&lt;lastname>ZHU&lt;/lastname>
-	&lt;/root>
-	&lt;!--root元素中的所有子元素都属于这个命名空间<span class="token punctuation">,</span>但是属性不属于这个空间-->
-	&lt;!--即<span class="token operator">:</span>默认命名空间仅针对元素-->
-	&lt;!--给属性分配命名空间需要显示定义<span class="token punctuation">,</span>即前缀名<span class="token punctuation">,</span>声明命名空间的方法二-->
-	&lt;!--给命名空间一个前缀名xx<span class="token punctuation">,</span>并且把元素分配给该空间-->
-	&lt;xx<span class="token operator">:</span>user xmlns<span class="token operator">:</span>xx = <span class="token string">"http://wrox.com/namespace/app/config/xx"</span>>
-		&lt;firstname>Yu-Ang&lt;/firstname>
-		&lt;lastname>ZHU&lt;/lastname>
-	&lt;/xx<span class="token operator">:</span>user>
-	&lt;!--把属性也分配给命名空间-->
-	&lt;user xx<span class="token operator">:</span>firstname=<span class="token string">"Yu-Ang"</span> xx<span class="token operator">:</span>lastname=<span class="token string">"ZHU"</span> />
-	&lt;user xx<span class="token operator">:</span>firstname=<span class="token string">"Yu-Ang"</span> xx<span class="token operator">:</span>lastname=<span class="token string">"ZHU"</span>>&lt;/user>
-	&lt;!--使用<span class="token punctuation">&#123;</span>URI<span class="token punctuation">&#125;</span>+元素名唯一标记一个元素-->
-	<span class="token punctuation">&#123;</span>http<span class="token operator">:</span><span class="token comment">//wrox.com/namespace/app/config&#125;root</span>
-&lt;/root><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token comment">/**键值对格式:     "名称":值
+名称需要始终被双引号包裹,虽然语法允许,但是建议不要使用空格和单引号、撇、点等特殊字符.
+值可以是数字、字符串、数组、对象等数据类型，不是必须被双引号包裹*/</span>
+<span class="token property">"animal"</span><span class="token operator">:</span><span class="token string">"cat"</span>
+<span class="token comment">/**Json以对象为单位,构建方式就是在键值对两侧写上花括号,一个对象里,键值对用逗号分隔*/</span>
+<span class="token punctuation">&#123;</span><span class="token property">"animal"</span><span class="token operator">:</span><span class="token string">"cat"</span><span class="token punctuation">,</span><span class="token property">"number"</span><span class="token operator">:</span><span class="token number">3</span><span class="token punctuation">&#125;</span>
+<span class="token comment">/**原始数据类型: 1.数字:整型、浮点、定点 2.字符和字符串 3.布尔:只能小写 4.null:只能小写
+复合数据类型: 1.枚举:数组,可以使用多维数组 2.对象*/</span>
+	<span class="token comment">/**枚举*/</span>
+<span class="token punctuation">[</span><span class="token string">"cat"</span><span class="token punctuation">,</span><span class="token string">"dog"</span><span class="token punctuation">,</span><span class="token string">"tiger"</span><span class="token punctuation">]</span>
+	<span class="token comment">/**对象*/</span>
+<span class="token punctuation">&#123;</span><span class="token property">"animal"</span><span class="token operator">:</span><span class="token string">"cat"</span><span class="token punctuation">,</span><span class="token property">"number"</span><span class="token operator">:</span><span class="token number">3</span><span class="token punctuation">&#125;</span>
+<span class="token comment">/**Json可以嵌套*/</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"person"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
+    <span class="token property">"name"</span><span class="token operator">:</span><span class="token string">"Simonck"</span>
+    <span class="token property">"height"</span><span class="token operator">:</span><span class="token number">173</span>
+    <span class="token property">"hair"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
+    <span class="token property">"color"</span><span class="token operator">:</span><span class="token string">"red"</span>
+    <span class="token property">"length"</span><span class="token operator">:</span><span class="token string">"short"</span>
+  	<span class="token punctuation">&#125;</span>
+    <span class="token property">"eyes"</span><span class="token operator">:</span><span class="token string">"black"</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/**Json也使用转义字符: 反斜杠\+字符*/</span>
+<span class="token punctuation">&#123;</span><span class="token property">"location"</span><span class="token operator">:</span><span class="token string">"c:\\Hexo"</span><span class="token punctuation">&#125;</span>
+<span class="token comment">/**Json验证:Schema,第一个键值对名称必须为 "$schema" ,值是一个schema文件
+第二个键值对应该是schema文件的标题
+第三个键值对名称为 "propertites" ,值为这个Json文件想要的格式
+第四个键值对名称为 "required" ，值为必填项，注意包含的"description"不必须
+Schema可以规定的内容还很多，包括字符串长度，数字范围，正则表达式等等，这里不展开*/</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"$schema"</span><span class="token operator">:</span><span class="token string">"http://json-schema.org/draft-04/schema#"</span>
+  <span class="token property">"title"</span><span class="token operator">:</span><span class="token string">"cat"</span>
+  <span class="token property">"propertites"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
+  	<span class="token property">"name"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
+  		<span class="token property">"type"</span><span class="token operator">:</span><span class="token string">"string"</span>
+	<span class="token punctuation">&#125;</span>
+	  <span class="token property">"age"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
+      	<span class="token property">"type"</span><span class="token operator">:</span><span class="token string">"number"</span>
+      	<span class="token property">"description"</span><span class="token operator">:</span><span class="token string">"Your cat`s age"</span>
+    <span class="token punctuation">&#125;</span>
+	  <span class="token property">"declawed"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
+      	<span class="token property">"type"</span><span class="token operator">:</span><span class="token string">"boolean"</span>
+    <span class="token punctuation">&#125;</span>
+	  <span class="token property">"size"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
+      	<span class="token property">"type"</span><span class="token operator">:</span><span class="token string">"string"</span>
+      	<span class="token property">"description"</span><span class="token operator">:</span><span class="token string">"Your cat`s size"</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+	<span class="token property">"required"</span><span class="token operator">:</span><span class="token punctuation">[</span>
+    <span class="token string">"name"</span><span class="token punctuation">,</span><span class="token string">"age"</span><span class="token punctuation">,</span>"declawed
+  <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/**这个Json文件符合上述schema*/</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"name"</span><span class="token operator">:</span><span class="token string">"jack"</span>
+  <span class="token property">"age"</span><span class="token operator">:</span><span class="token number">2</span>
+  <span class="token property">"declawed"</span><span class="token operator">:</span><span class="token boolean">false</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
+<h3 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h3><ul>
+<li>[XML入门经典（第5版）](<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1l8uOjScZA3tFntH4UTZi-A">https://pan.baidu.com/s/1l8uOjScZA3tFntH4UTZi-A</a><br>提取码：gmy9 )基础语法：2-4章</li>
+<li>[XML基础教程（第二版）](<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1PLCv0MfDOhE7eYo9OXAykg">https://pan.baidu.com/s/1PLCv0MfDOhE7eYo9OXAykg</a><br>提取码：qqxx [)</li>
+<li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/xml/index.asp">W3school:xml</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/xml/xml-tutorial.html">XML 教程</a></li>
+</ul>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--xml序言+独立声明--></span><span class="token comment">&lt;!--注意linux还是Windows格式的换行符--></span>
+<span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?></span>
+<span class="token comment">&lt;!--创建元素的方式--></span>
+	<span class="token comment">&lt;!--标准元素,有内容--></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>myelement</span><span class="token punctuation">></span></span>code<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>myelement</span><span class="token punctuation">></span></span>
+	<span class="token comment">&lt;!--自封闭元素,没有内容--></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>myelement</span><span class="token punctuation">/></span></span>
+<span class="token comment">&lt;!--四种命名方式--></span>
+	<span class="token comment">&lt;!--大驼峰--></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>MyElement</span><span class="token punctuation">/></span></span>
+	<span class="token comment">&lt;!--小驼峰--></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>myElement</span><span class="token punctuation">/></span></span>
+	<span class="token comment">&lt;!--下划线--></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my_element</span><span class="token punctuation">/></span></span>
+	<span class="token comment">&lt;!--连字符--></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-element</span><span class="token punctuation">/></span></span>
+<span class="token comment">&lt;!--一个文档只能有一个根元素--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>root</span><span class="token punctuation">></span></span>
+<span class="token comment">&lt;!--元素中可以添加属性:属性就是(名称-值)--></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>myelement</span> <span class="token attr-name">myfirstattribute</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>one<span class="token punctuation">"</span></span> <span class="token attr-name">mysecondattribute</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>two<span class="token punctuation">'</span></span> <span class="token attr-name">mythirdattribute</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span> <span class="token punctuation">'</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>myelement</span><span class="token punctuation">></span></span>
+<span class="token comment">&lt;!--元素和属性均可包括文本--></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>myelement</span><span class="token punctuation">></span></span>Here is a test<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>myelement</span><span class="token punctuation">></span></span>
+<span class="token comment">&lt;!--元素和属性都可以用来包装数据--></span>
+	<span class="token comment">&lt;!--元素--></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>user</span><span class="token punctuation">></span></span>
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>firstname</span><span class="token punctuation">></span></span>Yu-Ang<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>firstname</span><span class="token punctuation">></span></span>
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>lastname</span><span class="token punctuation">></span></span>ZHU<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>lastname</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>user</span><span class="token punctuation">></span></span>
+	<span class="token comment">&lt;!--属性--></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>user</span> <span class="token attr-name">firstname</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Yu-Ang<span class="token punctuation">"</span></span> <span class="token attr-name">lastname</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ZHU<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>user</span> <span class="token attr-name">firstname</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Yu-Ang<span class="token punctuation">"</span></span> <span class="token attr-name">lastname</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ZHU<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>user</span><span class="token punctuation">></span></span>
+<span class="token comment">&lt;!--处理指令--></span>
+<span class="token prolog">&lt;?xml-stylesheet type="text/xsl" href="appUsers.xslt"?></span>
+<span class="token comment">&lt;!--CDATA节,允许在xml文件中插入纯文本--></span>
+<span class="token comment">&lt;!--格式: &lt;![CDATA[文本内容]]>  --></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>user</span><span class="token punctuation">></span></span>
+	<span class="token cdata">&lt;![CDATA[这里写的内容会被当做纯文本处理]]></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>user</span><span class="token punctuation">></span></span>
+<span class="token comment">&lt;!--通过向元素中添加特殊的属性来决定如何处理空白符--></span>
+	<span class="token comment">&lt;!--保留空白符--></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>user</span> <span class="token attr-name"><span class="token namespace">xml:</span>space</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>preserve<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+	<span class="token comment">&lt;!--默认处理空白符--></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>user</span> <span class="token attr-name"><span class="token namespace">xml:</span>space</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>default<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token comment">&lt;!--命名空间：理解为Java中的package,大小写敏感--></span>
+<span class="token comment">&lt;!--命名空间：建议使用URL或者URN命名规范，这两个合称URI--></span>
+	<span class="token comment">&lt;!--URL--></span>
+	[Scheme]://[Domain][:Port]/[Path]?[QueryString]#[FragmentId]
+	<span class="token comment">&lt;!--URN--></span>
+	urn:[namespace identifier]:[namespace specific string]
+	<span class="token comment">&lt;!--声明命名空间的方法一：默认命名空间,希望整个文档都属于这个空间--></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>root</span> <span class="token attr-name">xmlns</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span>http://wrox.com/namespace/app/config<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>firstname</span><span class="token punctuation">></span></span>Yu-Ang<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>firstname</span><span class="token punctuation">></span></span>
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>lastname</span><span class="token punctuation">></span></span>ZHU<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>lastname</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>root</span><span class="token punctuation">></span></span>
+	<span class="token comment">&lt;!--root元素中的所有子元素都属于这个命名空间,但是属性不属于这个空间--></span>
+	<span class="token comment">&lt;!--即:默认命名空间仅针对元素--></span>
+	<span class="token comment">&lt;!--给属性分配命名空间需要显示定义,即前缀名,声明命名空间的方法二--></span>
+	<span class="token comment">&lt;!--给命名空间一个前缀名xx,并且把元素分配给该空间--></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">xx:</span>user</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>xx</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span>http://wrox.com/namespace/app/config/xx<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>firstname</span><span class="token punctuation">></span></span>Yu-Ang<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>firstname</span><span class="token punctuation">></span></span>
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>lastname</span><span class="token punctuation">></span></span>ZHU<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>lastname</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">xx:</span>user</span><span class="token punctuation">></span></span>
+	<span class="token comment">&lt;!--把属性也分配给命名空间--></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>user</span> <span class="token attr-name"><span class="token namespace">xx:</span>firstname</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Yu-Ang<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">xx:</span>lastname</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ZHU<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>user</span> <span class="token attr-name"><span class="token namespace">xx:</span>firstname</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Yu-Ang<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">xx:</span>lastname</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ZHU<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>user</span><span class="token punctuation">></span></span>
+	<span class="token comment">&lt;!--使用&#123;URI&#125;+元素名唯一标记一个元素--></span>
+	&#123;http://wrox.com/namespace/app/config&#125;root
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>root</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h2 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h2><h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
 <li>[动力节点：maven入门](<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/10avLNviwoYM7id_1OAQwPQ">https://pan.baidu.com/s/10avLNviwoYM7id_1OAQwPQ</a><br>提取码：y6no [)</li>
 <li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1x5411P7Hh?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=5ed422835abe3c8a0d5cba4a4b31a5e6">动力节点：maven视频</a></li>
