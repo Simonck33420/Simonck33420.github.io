@@ -29,16 +29,16 @@
 <meta property="og:site_name" content="SDN BOLG">
 <meta property="og:description" content="​		本文梳理了ARP的详细流程。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="d:/Typora/Typorafiles/picture/20220908连接示意图2.jpg">
-<meta property="og:image" content="d:/Typora/Typorafiles/picture/image-20220908141249187.png">
-<meta property="og:image" content="d:/Typora/Typorafiles/picture/20220908ARP请求.png">
-<meta property="og:image" content="d:/Typora/Typorafiles/picture/20220908举例-以太网帧.png">
+<meta property="og:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/20220908连接示意图2.jpg">
+<meta property="og:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/20220908%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7.png">
+<meta property="og:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/20220908ARP请求.png">
+<meta property="og:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/20220908%E4%B8%BE%E4%BE%8B-%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7.png">
 <meta property="article:published_time" content="2022-09-08T08:57:27.222Z">
-<meta property="article:modified_time" content="2022-09-08T12:42:49.941Z">
+<meta property="article:modified_time" content="2022-09-08T12:59:02.733Z">
 <meta property="article:author" content="Simonck">
 <meta property="article:tag" content="ARP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="d:/Typora/Typorafiles/picture/20220908连接示意图2.jpg">
+<meta name="twitter:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/20220908连接示意图2.jpg">
 
 
 <link rel="canonical" href="http://example.com/2022/09/08/ARP%E6%B5%81%E7%A8%8B%E6%A2%B3%E7%90%86/">
@@ -219,7 +219,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-09-08 16:57:27 / 修改时间：20:42:49" itemprop="dateCreated datePublished" datetime="2022-09-08T16:57:27+08:00">2022-09-08</time>
+      <time title="创建时间：2022-09-08 16:57:27 / 修改时间：20:59:02" itemprop="dateCreated datePublished" datetime="2022-09-08T16:57:27+08:00">2022-09-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -247,7 +247,7 @@
 <h2 id="研究背景约定"><a href="#研究背景约定" class="headerlink" title="研究背景约定"></a>研究背景约定</h2><ul>
 <li>连接示意图</li>
 </ul>
-<img src="D:\Typora\Typorafiles\picture\20220908连接示意图2.jpg" alt="微信图片_20220908135010" style="zoom: 33%;" />
+<img src="https://fastly.jsdelivr.net/gh/Simonck33420/image/20220908连接示意图2.jpg" alt="微信图片_20220908135010" style="zoom: 33%;" />
 
 <ul>
 <li>情况说明：<ul>
@@ -263,17 +263,17 @@
 <li><p>对PC1命令行下发指令<code>ping 10.1.3.101</code>,ping指令是Icmp协议工作在IP层,会产生一个Icmp包,IP协议会把这个包封装在IP报文里面,并填上<strong>源IP:10.1.2.101</strong>和<strong>目的IP:10.1.3.101</strong>,然后把IP包交给数据链路层.</p>
 </li>
 <li><p>数据链路层使用去掉了无用可选项的以太网帧格式,正常的设备可以识别,在这一层需要填上目的MAC和源MAC,结构如下图,这时<strong>源MAC</strong>为PC1:11-22-33-44-55-66,<strong>目的MAC</strong>会到PC1的arp缓存里面查找,因为这是设备第一次上线,所以缓存里面没有目的IP:10.1.3.101对应的目的MAC,于是需要发送ARP请求.</p>
-<img src="D:\Typora\Typorafiles\picture\image-20220908141249187.png" alt="image-20220908141249187" style="zoom:75%;" />
+<img src="https://fastly.jsdelivr.net/gh/Simonck33420/image/20220908%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7.png" alt="image-20220908141249187" style="zoom: 67%;" />
 </li>
 <li><p>这时<strong>源MAC</strong>为PC1:11-22-33-44-55-66,<strong>目的MAC</strong>会到PC1的arp缓存里面查找,因为这是设备第一次上线,所以缓存里面没有目的IP:10.1.3.101对应的目的MAC,于是需要发送ARP请求.ARP请求也封装在以太网帧中,这时的<strong>源MAC</strong>是PC1:11-22-33-44-55-66,而<strong>目的MAC</strong>是广播:ff-ff-ff-ff-ff-ff,以太网类型是ARP(0x0806),净荷里写明想要请求MAC的IP,即PC2:10.1.3.101.这条ARP请求会被PC1广播出去,被A车的内网交换机收到然后<strong>上送到控制器CtrlA</strong>.ARP请求示意图如下,示意图中要请求MAC的IP是10.228.90.12.</p>
-<img src="D:\Typora\Typorafiles\picture\20220908ARP请求.png" alt="image-20220908143257848" style="zoom:50%;" />
+<img src="https://fastly.jsdelivr.net/gh/Simonck33420/image/20220908ARP请求.png" alt="image-20220908143257848" style="zoom:50%;" />
 </li>
 <li><p><strong>CtrlA</strong>处理ARP请求的方式是创建一个ARP应答报文随意回复一个MAC地址,假设为虚拟MAC:11-11-11-11-11-11,应答报文也是封装在以太网帧中,<strong>源MAC</strong>是虚拟MAC:11-11-11-11-11-11,<strong>目的MAC</strong>是PC1:11-22-33-44-55-66,以太网类型是ARP(0x0806),净荷里写明PC2的IP:10.1.3.101对应的MAC是虚拟MAC:11-11-11-11-11-11.其实就是控制器替(假装自己是)PC2给PC1回了一个ARP请求,让PC1尽快把报文发出来,不要跨车去找PC2的MAC,防止在链路状态不好的时候卡在这.(这里也存在控制器处理报文的过程,为了逻辑清晰在下面展开)</p>
 </li>
 <li><p>PC1把得到的PC2:10.1.3.101对应的虚拟MAC:11-11-11-11-11-11写入ARP缓存,并填入:two:中的以太网报文,PC1以为的目的MAC是虚拟MAC:11-11-11-11-11-11,组包完成,发给A车的内网交换机.</p>
 </li>
 <li><p>由于是第一次上线两台车的内外网交换机都没有对应的流表,因此A车内网交换机会直接上送至<strong>CtrlA</strong>,此时CtrlA面临的是一条以太网帧,具体内容是:</p>
-<p><img src="D:\Typora\Typorafiles\picture\20220908举例-以太网帧.png" alt="举例-以太网帧"></p>
+<p><img src="https://fastly.jsdelivr.net/gh/Simonck33420/image/20220908%E4%B8%BE%E4%BE%8B-%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7.png" alt="举例-以太网帧"></p>
 </li>
 <li><p>CtrlA首先接收并解码报文,解码报文产生了一个<strong>EthernetPacketReceived</strong>类型的notification,它有一个packetchain成员对象,解码的结果就被放在里面,所有订阅这个notification的方法都知道收到并成功解码了一个以太网报文,解码的结果到packetchain中获取,代码片段如下:</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**ODL定义了接收数据的YANG模型,并且生成了工具类,在
