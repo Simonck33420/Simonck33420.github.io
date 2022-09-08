@@ -34,7 +34,7 @@
 <meta property="og:image" content="d:/Typora/Typorafiles/picture/20220908ARP请求.png">
 <meta property="og:image" content="d:/Typora/Typorafiles/picture/20220908举例-以太网帧.png">
 <meta property="article:published_time" content="2022-09-08T08:57:27.222Z">
-<meta property="article:modified_time" content="2022-09-08T08:56:28.709Z">
+<meta property="article:modified_time" content="2022-09-08T12:42:49.941Z">
 <meta property="article:author" content="Simonck">
 <meta property="article:tag" content="ARP">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-09-08 16:57:27 / 修改时间：16:56:28" itemprop="dateCreated datePublished" datetime="2022-09-08T16:57:27+08:00">2022-09-08</time>
+      <time title="创建时间：2022-09-08 16:57:27 / 修改时间：20:42:49" itemprop="dateCreated datePublished" datetime="2022-09-08T16:57:27+08:00">2022-09-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -275,7 +275,7 @@
 <li><p>由于是第一次上线两台车的内外网交换机都没有对应的流表,因此A车内网交换机会直接上送至<strong>CtrlA</strong>,此时CtrlA面临的是一条以太网帧,具体内容是:</p>
 <p><img src="D:\Typora\Typorafiles\picture\20220908举例-以太网帧.png" alt="举例-以太网帧"></p>
 </li>
-<li><p>CtrlA首先接收并解码报文,解码报文产生了一个EthernetPacketReceived类型的notification,它有一个packetchain成员对象,解码的结果就被放在里面,所有订阅这个notification的方法都知道收到并成功解码了一个以太网报文,解码的结果到packetchain中获取,代码片段如下:</p>
+<li><p>CtrlA首先接收并解码报文,解码报文产生了一个<strong>EthernetPacketReceived</strong>类型的notification,它有一个packetchain成员对象,解码的结果就被放在里面,所有订阅这个notification的方法都知道收到并成功解码了一个以太网报文,解码的结果到packetchain中获取,代码片段如下:</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**ODL定义了接收数据的YANG模型,并且生成了工具类,在
 org.opendaylight.yang.gen.v1.urn.opendaylight.packet.service.rev130709中
 有PacketReceivedBuilder.java,
@@ -313,7 +313,7 @@ org.opendaylight.yang.gen.v1.urn.opendaylight.packet.service.rev130709中
 初始化空的packetNotification
 判断:
 如果入参不为空且能够解析,就把解析结果放入packetNotification
-如果packetNotification不为空,就发布
+如果packetNotification不为空,就发布publish
 &#125;*/</span>
 <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">decodeAndPublish</span><span class="token punctuation">(</span><span class="token keyword">final</span> <span class="token class-name">C</span> consumedPacketNotification<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         decodeAndPublishExecutor<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-></span> <span class="token punctuation">&#123;</span>
@@ -321,14 +321,12 @@ org.opendaylight.yang.gen.v1.urn.opendaylight.packet.service.rev130709中
             <span class="token keyword">if</span> <span class="token punctuation">(</span>consumedPacketNotification <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> <span class="token function">canDecode</span><span class="token punctuation">(</span>consumedPacketNotification<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
                 packetNotification <span class="token operator">=</span> <span class="token function">decode</span><span class="token punctuation">(</span>consumedPacketNotification<span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token punctuation">&#125;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>packetNotification <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                notificationProviderService<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span>packetNotification<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>packetNotification <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>notificationProviderService<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span>packetNotification<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
         <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
 <span class="token comment">/**因此解码的过程在抽象类decode(consumedPacketNotification)
 表示对任意类型C的入参解码应该得到P类型的多态,
-这个类在EthernetDecoder.java中被重写,用来专门解码以太网帧*/</span>
+decode类在EthernetDecoder.java中被重写,用来专门解码以太网帧*/</span>
 <span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token class-name">P</span> <span class="token function">decode</span><span class="token punctuation">(</span><span class="token class-name">C</span> consumedPacketNotification<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment">/**EthernetDecoder.java中重写的decode返回一个EthernetPacketReceived类型的notification*/</span>
 <span class="token annotation punctuation">@Override</span>
@@ -340,9 +338,11 @@ org.opendaylight.yang.gen.v1.urn.opendaylight.packet.service.rev130709中
       <span class="token comment">/**开始处理报文,重点关注两个对象:
       ----1.解包工具,以太网报文对象,包括以太网报文的字段和方法:
       	    EthernetPacketBuilder epBuilder = new EthernetPacketBuilder();
-   	 ----2.packetchain,EthernetPacketReceived类型的notification中包括这个对象.
-   	 		  是一个集合,处理后的以太网报文暂时放在这里面了
-      处理报文的伪代码&#123;
+   	 ----2.packetchain集合,EthernetPacketReceived类型的notification中包括这个对象.
+   	 		  元素的类型被限制为PacketChain,处理后的以太网报文被赋给PacketChain类型,放在里面
+   	 		  ArrayList&lt;PacketChain> packetChain = new ArrayList&lt;>();*/</span>
+      <span class="token comment">/**
+      处理报文过程的伪代码&#123;
       保存原始rawPacket并设置载荷的Offset和Length字段
       try&#123;
       反序列化目标和源字段
@@ -354,18 +354,151 @@ org.opendaylight.yang.gen.v1.urn.opendaylight.packet.service.rev130709中
       设置EthernetPacket字段
       设置载荷字段
       		&#125;
-      	&#125;
-      */</span>
+      	&#125; */</span>
+      <span class="token comment">/**解码后的以太网报文被放在ArrayList&lt;PacketChain> packetChain 中,通过setPacket方法放到
+      EthernetPacketReceivedBuilder的成员_packetChain中了*/</span>
       builder<span class="token punctuation">.</span><span class="token function">setPacketChain</span><span class="token punctuation">(</span>packetChain<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token keyword">return</span> builder<span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
 <span class="token comment">/**处理以太网报文产生的notification结构如下*/</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">EthernetPacketReceivedBuilder</span> <span class="token keyword">implements</span> <span class="token class-name">Builder</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">EthernetPacketReceived</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
-  <span class="token comment">/**成员对象
-  packetchain里面放着以太网报文的处理结果,订阅者可以来这取结果*/</span>
+  <span class="token comment">/**成员对象,packetchain里面放着以太网报文的处理结果,订阅者可以来这取结果*/</span>
     <span class="token keyword">private</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PacketChain</span><span class="token punctuation">></span></span> _packetChain<span class="token punctuation">;</span>
     <span class="token keyword">private</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> _payload<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/**Packetchain接口定义如下*/</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">PacketChain</span> <span class="token keyword">extends</span> <span class="token class-name">ChildOf</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PacketChainGrp</span><span class="token punctuation">></span></span><span class="token punctuation">,</span><span class="token class-name">Augmentable</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PacketChain</span><span class="token punctuation">></span></span><span class="token punctuation">&#123;</span>
+       <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token annotation punctuation">@NonNull</span> <span class="token class-name">QName</span> QNAME <span class="token operator">=</span> $<span class="token class-name">YangModuleInfoImpl</span><span class="token punctuation">.</span><span class="token function">qnameOf</span><span class="token punctuation">(</span><span class="token string">"packet-chain"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Override</span>
+       <span class="token keyword">default</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>opendaylight<span class="token punctuation">.</span>yang<span class="token punctuation">.</span>gen<span class="token punctuation">.</span>v1<span class="token punctuation">.</span>urn<span class="token punctuation">.</span>opendaylight<span class="token punctuation">.</span>packet<span class="token punctuation">.</span>basepacket<span class="token punctuation">.</span>rev140528<span class="token punctuation">.</span>packet<span class="token punctuation">.</span>chain<span class="token punctuation">.</span>grp<span class="token punctuation">.</span></span>PacketChain</span><span class="token punctuation">></span></span> <span class="token function">implementedInterface</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+          <span class="token keyword">return</span> <span class="token class-name"><span class="token namespace">org<span class="token punctuation">.</span>opendaylight<span class="token punctuation">.</span>yang<span class="token punctuation">.</span>gen<span class="token punctuation">.</span>v1<span class="token punctuation">.</span>urn<span class="token punctuation">.</span>opendaylight<span class="token punctuation">.</span>packet<span class="token punctuation">.</span>basepacket<span class="token punctuation">.</span>rev140528<span class="token punctuation">.</span>packet<span class="token punctuation">.</span>chain<span class="token punctuation">.</span>grp<span class="token punctuation">.</span></span>PacketChain</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token annotation punctuation">@Nullable</span> <span class="token class-name">Packet</span> <span class="token function">getPacket</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="8">
+<li>以太网解码后暴露出了其中的IP报文,所以需要用IPv4解码器进一步解码,解码的过程和以太网解码器非常类似:</li>
+</ol>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**解码后,EthernetPacketReceived类型的notification被订阅者监听
+org/opendaylight/yang/gen/v1/urn/opendaylight/packet/ethernet/rev140528/
+EthernetPacketListener.java
+有三个解码器实现了这个接口:ARP\IPv4\IPv6,Icmp应该基于IPv4*/</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">EthernetPacketListener</span> <span class="token keyword">extends</span> <span class="token class-name">NotificationListener</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">void</span> <span class="token function">onEthernetPacketReceived</span><span class="token punctuation">(</span><span class="token class-name">EthernetPacketReceived</span> notification<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/** IPv4 Packet Decoder. */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Ipv4Decoder</span> <span class="token keyword">extends</span> <span class="token class-name">AbstractPacketDecoder</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">EthernetPacketReceived</span><span class="token punctuation">,</span> <span class="token class-name">Ipv4PacketReceived</span><span class="token punctuation">></span></span>
+        <span class="token keyword">implements</span> <span class="token class-name">EthernetPacketListener</span> <span class="token punctuation">&#123;</span>
+     <span class="token annotation punctuation">@Override</span> <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onEthernetPacketReceived</span><span class="token punctuation">(</span><span class="token class-name">EthernetPacketReceived</span> notification<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+       <span class="token comment">/**decodeAndPublish的功能还是在decode方法实现*/</span>
+        <span class="token function">decodeAndPublish</span><span class="token punctuation">(</span>notification<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token comment">/**可以看见IPv4解码器的入参正好是以太网解码器的结果：EthernetPacketReceived类型的notification！
+       同理，IPv4解码器返回一个 Ipv4PacketReceived类型的notification*/</span>
+   <span class="token annotation punctuation">@Override</span> <span class="token keyword">public</span> <span class="token class-name">Ipv4PacketReceived</span> <span class="token function">decode</span><span class="token punctuation">(</span><span class="token class-name">EthernetPacketReceived</span> ethernetPacketReceived<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+     <span class="token comment">/**初始化 Ipv4PacketReceived类型的notification*/</span>
+      <span class="token class-name">Ipv4PacketReceivedBuilder</span> ipv4ReceivedBuilder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Ipv4PacketReceivedBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token comment">/**读出notification中PacketChain的最新数据包，是一个EthernetPacket,并在这里再创建一个元素类型是
+     PacketChain的集合,用来放IPv4解码结果*/</span>
+     <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PacketChain</span><span class="token punctuation">></span></span> packetChainList <span class="token operator">=</span> ethernetPacketReceived<span class="token punctuation">.</span><span class="token function">getPacketChain</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token comment">/**
+     处理报文过程的伪代码&#123;
+      读取载荷
+      IPv4类型的解包工具.Ipv4PacketBuilder builder = new Ipv4PacketBuilder();
+      try&#123;
+      设置version、Ihl、Dscp、Ecn等字段
+      解码标志——保留、DF（不分段）、MF（更多分段）
+    “与 0xff”删除Java字节的符号
+      解码可选的“选项”参数
+      解码IPv4有效负载
+      		&#125;
+      构建IPv4报文
+      结转原始有效载荷
+      	&#125;
+     */</span>
+     <span class="token comment">/**返回一个Ipv4PacketReceived类型的notification,而且其中也有
+    	 一个成员_packetChain存放解码结果*/</span>
+     <span class="token keyword">return</span> ipv4ReceivedBuilder<span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol start="9">
+<li><p>IPv4解码后,应该暴露出其中的Icmp报文了,所以下一步是Icmp解码器:</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**Ipv4PacketListener 订阅了Ipv4PacketReceived类型的notification,
+org/opendaylight/yang/gen/v1/urn/opendaylight/packet/
+ipv4/rev140528/Ipv4PacketListener.java*/</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Ipv4PacketListener</span> <span class="token keyword">extends</span> <span class="token class-name">NotificationListener</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">void</span> <span class="token function">onIpv4PacketReceived</span><span class="token punctuation">(</span><span class="token class-name">Ipv4PacketReceived</span> notification<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/**Icmp解码器使用了Ipv4PacketListener*/</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IcmpDecoder</span> <span class="token keyword">extends</span> <span class="token class-name">AbstractPacketDecoder</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Ipv4PacketReceived</span><span class="token punctuation">,</span> <span class="token class-name">IcmpPacketReceived</span><span class="token punctuation">></span></span>
+        <span class="token keyword">implements</span> <span class="token class-name">Ipv4PacketListener</span> <span class="token punctuation">&#123;</span>
+  <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onIpv4PacketReceived</span><span class="token punctuation">(</span><span class="token class-name">Ipv4PacketReceived</span> notification<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">/**decodeAndPublish继续使用decode方法*/</span>
+      <span class="token function">decodeAndPublish</span><span class="token punctuation">(</span>notification<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token annotation punctuation">@Override</span><span class="token comment">/**返回IcmpPacketReceived类型的notification*/</span>
+    <span class="token keyword">public</span> <span class="token class-name">IcmpPacketReceived</span> <span class="token function">decode</span><span class="token punctuation">(</span><span class="token class-name">Ipv4PacketReceived</span> ipv4PacketReceived<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token comment">/**用来创建IcmpPacketReceived类型的notification*/</span>
+      <span class="token class-name">IcmpPacketReceivedBuilder</span> icmpReceivedBuilder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">IcmpPacketReceivedBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">/**元素类型为PacketChain的集合,存放解码结果*/</span>
+      <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PacketChain</span><span class="token punctuation">></span></span> packetChainList <span class="token operator">=</span> ipv4PacketReceived<span class="token punctuation">.</span><span class="token function">getPacketChain</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">/**Icmp类型的解包工具*/</span>
+      <span class="token class-name">IcmpPacketBuilder</span> builder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">IcmpPacketBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">/**
+      处理报文过程的伪代码&#123;
+      try&#123;
+       解码ICMP类型和ICMP代码
+       解码校验和
+       解码标识符和序列号
+       解码净荷
+      		&#125;
+       构建icmp包
+       结转原始有效载荷
+      	&#125;
+      */</span>
+      <span class="token comment">/**返回一个IcmpPacketReceived类型的notification,而且其中也有
+    	 一个成员_packetChain存放解码结果*/</span>
+      <span class="token keyword">return</span> icmpReceivedBuilder<span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+  <span class="token comment">/**Icmp解码结果继续被订阅
+  org/opendaylight/yang/gen/v1/urn/opendaylight/packet/icmp/
+  rev140528/IcmpPacketListener.java*/</span>
+  <span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">IcmpPacketListener</span> <span class="token keyword">extends</span> <span class="token class-name">NotificationListener</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">void</span> <span class="token function">onIcmpPacketReceived</span><span class="token punctuation">(</span><span class="token class-name">IcmpPacketReceived</span> notification<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+  <span class="token comment">/**前文第4点中未展开的ARP报文解析也是一样的解码方法
+  ARP解码器订阅了EthernetPacketListener
+  返回 ArpPacketReceived类型的notification，继续被自己的订阅者监听
+  */</span>
+  <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ArpDecoder</span> <span class="token keyword">extends</span> <span class="token class-name">AbstractPacketDecoder</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">EthernetPacketReceived</span><span class="token punctuation">,</span> <span class="token class-name">ArpPacketReceived</span><span class="token punctuation">></span></span>
+        <span class="token keyword">implements</span> <span class="token class-name">EthernetPacketListener</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onEthernetPacketReceived</span><span class="token punctuation">(</span><span class="token class-name">EthernetPacketReceived</span> notification<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">decodeAndPublish</span><span class="token punctuation">(</span>notification<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">ArpPacketReceived</span> <span class="token function">decode</span><span class="token punctuation">(</span><span class="token class-name">EthernetPacketReceived</span> ethernetPacketReceived<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token class-name">ArpPacketReceivedBuilder</span> arpReceivedBuilder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArpPacketReceivedBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PacketChain</span><span class="token punctuation">></span></span> packetChainList <span class="token operator">=</span> ethernetPacketReceived<span class="token punctuation">.</span><span class="token function">getPacketChain</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token class-name">ArpPacketBuilder</span> builder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArpPacketBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">/**解析过程，不赘述*/</span>
+      <span class="token keyword">return</span> arpReceivedBuilder<span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>本例的目的是让PC1和PC2能ping通，实际上是不关心Icmp报文的具体内容的，最主要的是提取报文中的目的MAC、源MAC、目的IP、源IP，因此IPv4解码结果还有另外两个订阅者<code>AddressObserverUsingIpv4</code>和<code>SimpleAddressObserver</code></p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**AddressObserverUsingIpv4:
+ AddressObserver侦听IPv4数据包以查找地址（mac、ip），并为每个节点连接器存储这些地址观察。
+ 在学习地址之后，这些数据包返回到网络.
+*/</span>
+
+
+<span class="token comment">/**SimpleAddressObserver:基于l2switch地址观测器的简单地址观测器.
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li></li>
+</ol>
+</li>
 </ol>
 <h2 id="参考信息"><a href="#参考信息" class="headerlink" title="参考信息"></a>参考信息</h2><p>用户数据包在车间PC之间传输流程</p>
 <p>A车PC：a第一次向B车PC：b发送用户数据包流程如下：</p>
