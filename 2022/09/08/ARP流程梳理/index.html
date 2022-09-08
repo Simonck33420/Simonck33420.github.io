@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha256-xejo6yLi6vGtAjcMIsY8BHdKsLg7QynVlFMzdQgUuy8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="​		本文梳理了ARP的详细流程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ARP流程梳理">
+<meta property="og:url" content="http://example.com/2022/09/08/ARP%E6%B5%81%E7%A8%8B%E6%A2%B3%E7%90%86/index.html">
+<meta property="og:site_name" content="SDN BOLG">
+<meta property="og:description" content="​		本文梳理了ARP的详细流程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="d:/Typora/Typorafiles/picture/20220908连接示意图2.jpg">
+<meta property="og:image" content="d:/Typora/Typorafiles/picture/image-20220908141249187.png">
+<meta property="og:image" content="d:/Typora/Typorafiles/picture/20220908ARP请求.png">
+<meta property="og:image" content="d:/Typora/Typorafiles/picture/20220908举例-以太网帧.png">
+<meta property="article:published_time" content="2022-09-08T08:57:27.222Z">
+<meta property="article:modified_time" content="2022-09-08T08:56:28.709Z">
+<meta property="article:author" content="Simonck">
+<meta property="article:tag" content="ARP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="d:/Typora/Typorafiles/picture/20220908连接示意图2.jpg">
+
+
+<link rel="canonical" href="http://example.com/2022/09/08/ARP%E6%B5%81%E7%A8%8B%E6%A2%B3%E7%90%86/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/09/08/ARP%E6%B5%81%E7%A8%8B%E6%A2%B3%E7%90%86/","path":"2022/09/08/ARP流程梳理/","title":"ARP流程梳理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ARP流程梳理 | SDN BOLG</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="SDN BOLG" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">SDN BOLG</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF%E7%BA%A6%E5%AE%9A"><span class="nav-number">1.</span> <span class="nav-text">研究背景约定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E6%A2%B3%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">流程梳理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PC1-PC2%E7%9B%B8%E4%BA%92ping%E9%80%9A"><span class="nav-number">2.1.</span> <span class="nav-text">PC1\PC2相互ping通</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E4%BF%A1%E6%81%AF"><span class="nav-number">3.</span> <span class="nav-text">参考信息</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Simonck"
+      src="https://fastly.jsdelivr.net/gh/Simonck33420/image/202208091628825.jpg">
+  <p class="site-author-name" itemprop="name">Simonck</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/08/ARP%E6%B5%81%E7%A8%8B%E6%A2%B3%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/202208091628825.jpg">
+      <meta itemprop="name" content="Simonck">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SDN BOLG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ARP流程梳理 | SDN BOLG">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ARP流程梳理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-08 16:57:27 / 修改时间：16:56:28" itemprop="dateCreated datePublished" datetime="2022-09-08T16:57:27+08:00">2022-09-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SDN/" itemprop="url" rel="index"><span itemprop="name">SDN</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​		本文梳理了ARP的详细流程。</p>
+<span id="more"></span>
+
+<h2 id="研究背景约定"><a href="#研究背景约定" class="headerlink" title="研究背景约定"></a>研究背景约定</h2><ul>
+<li>连接示意图</li>
+</ul>
+<img src="D:\Typora\Typorafiles\picture\20220908连接示意图2.jpg" alt="微信图片_20220908135010" style="zoom: 33%;" />
+
+<ul>
+<li>情况说明：<ul>
+<li>左侧代表A车，右侧代表B车，每台车内交换机的dpid设计相同，暂时不考虑多外网交换机的情况</li>
+<li>控制器没有MAC地址，内外网交换机有MAC地址，但是不关注</li>
+<li>A、B两车各自有一台PC连接，两台PC都是第一次上线</li>
+</ul>
+</li>
+</ul>
+<h2 id="流程梳理"><a href="#流程梳理" class="headerlink" title="流程梳理"></a>流程梳理</h2><p>​	新上线的PC会触发多个模块的功能，包括但不限于监听设备上线、ARP处理、单播等，本文认为这些模块没有明确的顺序关系，应当是并行处理的，所以下面分别按照功能梳理对应的工作流程：</p>
+<h3 id="PC1-PC2相互ping通"><a href="#PC1-PC2相互ping通" class="headerlink" title="PC1\PC2相互ping通"></a>PC1\PC2相互ping通</h3><p>​		以PC1:10.1.2.101 ping PC2:10.1.3.101为例.</p>
+<ol>
+<li><p>对PC1命令行下发指令<code>ping 10.1.3.101</code>,ping指令是Icmp协议工作在IP层,会产生一个Icmp包,IP协议会把这个包封装在IP报文里面,并填上<strong>源IP:10.1.2.101</strong>和<strong>目的IP:10.1.3.101</strong>,然后把IP包交给数据链路层.</p>
+</li>
+<li><p>数据链路层使用去掉了无用可选项的以太网帧格式,正常的设备可以识别,在这一层需要填上目的MAC和源MAC,结构如下图,这时<strong>源MAC</strong>为PC1:11-22-33-44-55-66,<strong>目的MAC</strong>会到PC1的arp缓存里面查找,因为这是设备第一次上线,所以缓存里面没有目的IP:10.1.3.101对应的目的MAC,于是需要发送ARP请求.</p>
+<img src="D:\Typora\Typorafiles\picture\image-20220908141249187.png" alt="image-20220908141249187" style="zoom:75%;" />
+</li>
+<li><p>这时<strong>源MAC</strong>为PC1:11-22-33-44-55-66,<strong>目的MAC</strong>会到PC1的arp缓存里面查找,因为这是设备第一次上线,所以缓存里面没有目的IP:10.1.3.101对应的目的MAC,于是需要发送ARP请求.ARP请求也封装在以太网帧中,这时的<strong>源MAC</strong>是PC1:11-22-33-44-55-66,而<strong>目的MAC</strong>是广播:ff-ff-ff-ff-ff-ff,以太网类型是ARP(0x0806),净荷里写明想要请求MAC的IP,即PC2:10.1.3.101.这条ARP请求会被PC1广播出去,被A车的内网交换机收到然后<strong>上送到控制器CtrlA</strong>.ARP请求示意图如下,示意图中要请求MAC的IP是10.228.90.12.</p>
+<img src="D:\Typora\Typorafiles\picture\20220908ARP请求.png" alt="image-20220908143257848" style="zoom:50%;" />
+</li>
+<li><p><strong>CtrlA</strong>处理ARP请求的方式是创建一个ARP应答报文随意回复一个MAC地址,假设为虚拟MAC:11-11-11-11-11-11,应答报文也是封装在以太网帧中,<strong>源MAC</strong>是虚拟MAC:11-11-11-11-11-11,<strong>目的MAC</strong>是PC1:11-22-33-44-55-66,以太网类型是ARP(0x0806),净荷里写明PC2的IP:10.1.3.101对应的MAC是虚拟MAC:11-11-11-11-11-11.其实就是控制器替(假装自己是)PC2给PC1回了一个ARP请求,让PC1尽快把报文发出来,不要跨车去找PC2的MAC,防止在链路状态不好的时候卡在这.(这里也存在控制器处理报文的过程,为了逻辑清晰在下面展开)</p>
+</li>
+<li><p>PC1把得到的PC2:10.1.3.101对应的虚拟MAC:11-11-11-11-11-11写入ARP缓存,并填入:two:中的以太网报文,PC1以为的目的MAC是虚拟MAC:11-11-11-11-11-11,组包完成,发给A车的内网交换机.</p>
+</li>
+<li><p>由于是第一次上线两台车的内外网交换机都没有对应的流表,因此A车内网交换机会直接上送至<strong>CtrlA</strong>,此时CtrlA面临的是一条以太网帧,具体内容是:</p>
+<p><img src="D:\Typora\Typorafiles\picture\20220908举例-以太网帧.png" alt="举例-以太网帧"></p>
+</li>
+<li><p>CtrlA首先接收并解码报文,解码报文产生了一个EthernetPacketReceived类型的notification,它有一个packetchain成员对象,解码的结果就被放在里面,所有订阅这个notification的方法都知道收到并成功解码了一个以太网报文,解码的结果到packetchain中获取,代码片段如下:</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**ODL定义了接收数据的YANG模型,并且生成了工具类,在
+org.opendaylight.yang.gen.v1.urn.opendaylight.packet.service.rev130709中
+有PacketReceivedBuilder.java,
+水太深,把握不住了
+*/</span>
+<span class="token comment">/**收到的报文存在PacketReceived接口的某个多态类里面*/</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">PacketReceived</span> <span class="token keyword">extends</span> <span class="token class-name">DataObject</span><span class="token punctuation">,</span> <span class="token class-name">Augmentable</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PacketReceived</span><span class="token punctuation">></span></span><span class="token punctuation">,</span> <span class="token class-name">PacketIn</span><span class="token punctuation">,</span> <span class="token class-name">Notification</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@NonNull</span>
+    <span class="token class-name">QName</span> QNAME <span class="token operator">=</span> <span class="token class-name">YangModuleInfoImpl</span><span class="token punctuation">.</span><span class="token function">qnameOf</span><span class="token punctuation">(</span><span class="token string">"packet-received"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">default</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PacketReceived</span><span class="token punctuation">></span></span> <span class="token function">implementedInterface</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token class-name">PacketReceived</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token annotation punctuation">@Nullable</span>
+    <span class="token class-name">Match</span> <span class="token function">getMatch</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/**所有类型的解码器都继承了抽象类AbstractPacketDecoder,
+    泛型C代表入参可以是任意类型,泛型P extends Notification
+*/</span>
+<span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">AbstractPacketDecoder</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">C</span><span class="token punctuation">,</span> <span class="token class-name">P</span> <span class="token keyword">extends</span> <span class="token class-name">Notification</span><span class="token punctuation">></span></span>
+        <span class="token keyword">implements</span> <span class="token class-name">NotificationProviderService<span class="token punctuation">.</span>NotificationInterestListener</span><span class="token punctuation">,</span> <span class="token class-name">AutoCloseable</span> <span class="token punctuation">&#123;</span>
+  		<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">decodeAndPublish</span><span class="token punctuation">(</span><span class="token keyword">final</span> <span class="token class-name">C</span> consumedPacketNotification<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+  		<span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token class-name">P</span> <span class="token function">decode</span><span class="token punctuation">(</span><span class="token class-name">C</span> consumedPacketNotification<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/**l2switch/packethandler/decoders/EthernetDecoder.java */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">EthernetDecoder</span> <span class="token keyword">extends</span> <span class="token class-name">AbstractPacketDecoder</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PacketReceived</span><span class="token punctuation">,</span> 
+<span class="token class-name">EthernetPacketReceived</span><span class="token punctuation">></span></span><span class="token keyword">implements</span> <span class="token class-name">PacketProcessingListener</span> <span class="token punctuation">&#123;</span>
+  			<span class="token comment">/**入参是收到的报文,对收到的报文解码并发布解码成功的消息notification
+			入参是用接口声明变量,是多态的写法,表示只要能实现这个接口,就都可以放这里*/</span>
+			<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onPacketReceived</span><span class="token punctuation">(</span><span class="token class-name">PacketReceived</span> packetReceived<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        	<span class="token function">decodeAndPublish</span><span class="token punctuation">(</span>packetReceived<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    		<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/**
+伪代码:&#123;
+初始化空的packetNotification
+判断:
+如果入参不为空且能够解析,就把解析结果放入packetNotification
+如果packetNotification不为空,就发布
+&#125;*/</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">decodeAndPublish</span><span class="token punctuation">(</span><span class="token keyword">final</span> <span class="token class-name">C</span> consumedPacketNotification<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        decodeAndPublishExecutor<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-></span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">P</span> packetNotification <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>consumedPacketNotification <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> <span class="token function">canDecode</span><span class="token punctuation">(</span>consumedPacketNotification<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                packetNotification <span class="token operator">=</span> <span class="token function">decode</span><span class="token punctuation">(</span>consumedPacketNotification<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>packetNotification <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                notificationProviderService<span class="token punctuation">.</span><span class="token function">publish</span><span class="token punctuation">(</span>packetNotification<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token comment">/**因此解码的过程在抽象类decode(consumedPacketNotification)
+表示对任意类型C的入参解码应该得到P类型的多态,
+这个类在EthernetDecoder.java中被重写,用来专门解码以太网帧*/</span>
+<span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token class-name">P</span> <span class="token function">decode</span><span class="token punctuation">(</span><span class="token class-name">C</span> consumedPacketNotification<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">/**EthernetDecoder.java中重写的decode返回一个EthernetPacketReceived类型的notification*/</span>
+<span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">EthernetPacketReceived</span> <span class="token function">decode</span><span class="token punctuation">(</span><span class="token class-name">PacketReceived</span> packetReceived<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+     <span class="token comment">/**读收到的包的载荷到数组*/</span>
+      <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> packetReceived<span class="token punctuation">.</span><span class="token function">getPayload</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">/**初始化一个构造notification的对象*/</span>
+      <span class="token class-name">EthernetPacketReceivedBuilder</span> builder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EthernetPacketReceivedBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">/**开始处理报文,重点关注两个对象:
+      ----1.解包工具,以太网报文对象,包括以太网报文的字段和方法:
+      	    EthernetPacketBuilder epBuilder = new EthernetPacketBuilder();
+   	 ----2.packetchain,EthernetPacketReceived类型的notification中包括这个对象.
+   	 		  是一个集合,处理后的以太网报文暂时放在这里面了
+      处理报文的伪代码&#123;
+      保存原始rawPacket并设置载荷的Offset和Length字段
+      try&#123;
+      反序列化目标和源字段
+      反序列化可选字段802.1Q标头
+      设置802.1Q头部
+      反序列化EtherType或Length字段
+      确定有效载荷的开始和结束
+      反序列化CRC
+      设置EthernetPacket字段
+      设置载荷字段
+      		&#125;
+      	&#125;
+      */</span>
+      builder<span class="token punctuation">.</span><span class="token function">setPacketChain</span><span class="token punctuation">(</span>packetChain<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> builder<span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token comment">/**处理以太网报文产生的notification结构如下*/</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">EthernetPacketReceivedBuilder</span> <span class="token keyword">implements</span> <span class="token class-name">Builder</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">EthernetPacketReceived</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">/**成员对象
+  packetchain里面放着以太网报文的处理结果,订阅者可以来这取结果*/</span>
+    <span class="token keyword">private</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">PacketChain</span><span class="token punctuation">></span></span> _packetChain<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> _payload<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h2 id="参考信息"><a href="#参考信息" class="headerlink" title="参考信息"></a>参考信息</h2><p>用户数据包在车间PC之间传输流程</p>
+<p>A车PC：a第一次向B车PC：b发送用户数据包流程如下：</p>
+<p>\1. a发送数据包前首先检查本地arp缓存表，没有b的mac地址，因此会首先发送arp请求包；</p>
+<p>\2. A车控制器接收到该ARP数据包后，立即向a发送应答，应答包中的目的mac是随意编的，同时向A车交换机下发该条流表；</p>
+<p>\3. a收到arp应答后重新组包发送；</p>
+<p>\4. 由于无法确定a重发数据包与该条流表下发完毕的时序，有可能出现a的数据包发过来，流表还没下发完毕，此时数据包又会上报到A车控制器，A车控制器会再次下发该条流表信息到交换机，此时该数据包便被控制器丢弃了，只能保证下次的数据包能够成功转发；</p>
+<p>\5. A车控制器接收到该数据包后，通过目的IP地址确定数据包的目的车辆，然后将该条流表信息下发到交换机，后面再有a与b之间的通信则直接通过交换机转发；</p>
+<p>\6. 该数据包发送到B车后，如果该交换机已经下发过流表，则数据包在交换机进行目的mac地址替换后直接发送给b；如果没有下发过流表，则通过默认流表将该包上报到B车控制器；</p>
+<p>\7. B车控制器接收到该数据包后去查mac与IP对应表，如果没有该包对应的目的mac，则B车控制器向本车内发送arp泛洪报文去查询mac地址；</p>
+<p>\8. b接收到arp请求报文后，给出应答；</p>
+<p>\9. B车控制器记录该对应关系并向交换机下发该条流表信息，此时该数据包会被丢弃，等下次数据包到来时，将通过该流表信息由交换机替换好真实目的mac后转发给b。</p>
+<p>注：用户数据包只要上报给控制器后该数据包便会被丢弃，因为控制器没有包缓存功能</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ARP/" rel="tag"># ARP</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/07/OpenDayLight%E6%8F%90%E9%AB%98%E7%AF%87/" rel="prev" title="OpenDayLight提高篇">
+                  <i class="fa fa-chevron-left"></i> OpenDayLight提高篇
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Simonck</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+-->
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+
+</body>
+</html>

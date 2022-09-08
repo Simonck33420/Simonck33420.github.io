@@ -30,7 +30,7 @@
 <meta property="og:description" content="​		本文记录了对标准L2switch和私有L2switch的阅读和解析.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-01T01:42:36.370Z">
-<meta property="article:modified_time" content="2022-09-02T09:14:34.945Z">
+<meta property="article:modified_time" content="2022-09-07T09:05:22.123Z">
 <meta property="article:author" content="Simonck">
 <meta property="article:tag" content="L2switch">
 <meta name="twitter:card" content="summary">
@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -220,7 +220,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-09-02 17:14:34" itemprop="dateModified" datetime="2022-09-02T17:14:34+08:00">2022-09-02</time>
+      <time title="修改时间：2022-09-07 17:05:22" itemprop="dateModified" datetime="2022-09-07T17:05:22+08:00">2022-09-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -267,7 +267,7 @@
 </thead>
 <tbody><tr>
 <td align="center">Packet Handler</td>
-<td align="center">解码上送到控制器的报文并正确分发</td>
+<td align="center">处理上送到控制器的报文,是项目的主要功能</td>
 </tr>
 <tr>
 <td align="center">Loop Remover</td>
@@ -393,12 +393,7 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
 <span class="token comment">/**ConcurrentClusterAwareHostHashMap: */</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConcurrentClusterAwareHostHashMap</span> <span class="token punctuation">&#123;</span>
   
-<span class="token punctuation">&#125;</span>
-
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="inventory"><a href="#inventory" class="headerlink" title="inventory"></a>inventory</h3><h3 id="util"><a href="#util" class="headerlink" title="util"></a>util</h3><h2 id="Packet-Handler-主要功能"><a href="#Packet-Handler-主要功能" class="headerlink" title="Packet Handler(主要功能)"></a>Packet Handler(主要功能)</h2><p>​		Packet Handler负责处理控制器涉及的大部分报文,私有功能的逻辑主要在这里定义.相比标准结构,增加了control、icfp两个文件夹,共有decoder(解码器)文件夹和PacketHandlerProvider类,重点关注control和icfp文件夹,以及私有项目对blueprint的改动,对pom.xml文件的改动.</p>
 <h3 id="decoder-未改动"><a href="#decoder-未改动" class="headerlink" title="decoder(未改动):"></a>decoder(未改动):</h3><table>
