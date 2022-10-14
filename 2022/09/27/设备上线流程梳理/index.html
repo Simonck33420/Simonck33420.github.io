@@ -29,11 +29,17 @@
 <meta property="og:site_name" content="SDN BOLG">
 <meta property="og:description" content="​		本文梳理了SDN系统在设备上线时的处理流程和对应代码.">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/202208111712587.png">
+<meta property="og:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/openflow%E5%8C%B9%E9%85%8D%E9%A1%B91-20221012.jpg">
+<meta property="og:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/%E6%B5%81%E8%A1%A8%E5%8C%B9%E9%85%8D%E9%A1%B92-20221012.jpg">
+<meta property="og:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/%E6%8C%87%E4%BB%A4%E7%B1%BB%E5%9E%8B20221010.png">
+<meta property="og:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/%E5%8A%A8%E4%BD%9C%E9%9B%86%E5%86%85%E5%AE%B920221010.png">
 <meta property="article:published_time" content="2022-09-27T08:18:21.824Z">
-<meta property="article:modified_time" content="2022-09-27T08:17:57.800Z">
+<meta property="article:modified_time" content="2022-10-14T12:54:27.387Z">
 <meta property="article:author" content="Simonck">
 <meta property="article:tag" content="初始化">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/202208111712587.png">
 
 
 <link rel="canonical" href="http://example.com/2022/09/27/%E8%AE%BE%E5%A4%87%E4%B8%8A%E7%BA%BF%E6%B5%81%E7%A8%8B%E6%A2%B3%E7%90%86/">
@@ -119,7 +125,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87%E4%B8%8A%E7%BA%BF"><span class="nav-number">1.</span> <span class="nav-text">设备上线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AA%E6%9C%89%E6%8E%A7%E5%88%B6%E5%99%A8%E5%92%8C%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%B8%8A%E7%BA%BF"><span class="nav-number">1.1.</span> <span class="nav-text">只有控制器和交换机第一次上线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%8B%E5%90%8E%E6%9C%89%E7%BB%88%E7%AB%AF%E4%B8%8A%E7%BA%BF"><span class="nav-number">1.2.</span> <span class="nav-text">之后有终端上线</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%A2%B3%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">代码梳理</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87%E4%B8%8A%E7%BA%BF"><span class="nav-number">1.</span> <span class="nav-text">设备上线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AA%E6%9C%89%E6%8E%A7%E5%88%B6%E5%99%A8%E5%92%8C%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%B8%8A%E7%BA%BF"><span class="nav-number">1.1.</span> <span class="nav-text">只有控制器和交换机第一次上线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%8B%E5%90%8E%E6%9C%89%E7%BB%88%E7%AB%AF%E4%B8%8A%E7%BA%BF"><span class="nav-number">1.2.</span> <span class="nav-text">之后有终端上线</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%A2%B3%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">代码梳理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">2.1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5"><span class="nav-number">2.2.</span> <span class="nav-text">建立连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E5%8F%91%E9%BB%98%E8%AE%A4%E5%88%9D%E5%A7%8B%E6%B5%81%E8%A1%A8"><span class="nav-number">2.3.</span> <span class="nav-text">下发默认初始流表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E5%8D%8F%E8%AE%AE%E6%8A%A5%E6%96%87"><span class="nav-number">2.4.</span> <span class="nav-text">发送协议报文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90%E6%94%B6%E5%88%B0%E7%9A%84%E6%8A%A5%E6%96%87"><span class="nav-number">2.5.</span> <span class="nav-text">解析收到的报文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%8B%93%E6%89%91%E5%9B%BE"><span class="nav-number">2.6.</span> <span class="nav-text">生成拓扑图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E9%BB%98%E8%AE%A4%E6%B5%81%E8%A1%A8%E5%B9%B6%E4%B8%8B%E5%8F%91"><span class="nav-number">2.7.</span> <span class="nav-text">计算默认流表并下发</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -134,7 +140,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +151,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -212,9 +218,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-09-27 16:18:21 / 修改时间：16:17:57" itemprop="dateCreated datePublished" datetime="2022-09-27T16:18:21+08:00">2022-09-27</time>
+      <time title="创建时间：2022-09-27 16:18:21" itemprop="dateCreated datePublished" datetime="2022-09-27T16:18:21+08:00">2022-09-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-10-14 20:54:27" itemprop="dateModified" datetime="2022-10-14T20:54:27+08:00">2022-10-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -242,7 +254,7 @@
 <h2 id="设备上线"><a href="#设备上线" class="headerlink" title="设备上线"></a>设备上线</h2><h3 id="只有控制器和交换机第一次上线"><a href="#只有控制器和交换机第一次上线" class="headerlink" title="只有控制器和交换机第一次上线"></a>只有控制器和交换机第一次上线</h3><ul>
 <li>控制器和交换机建立连接</li>
 <li>控制器向交换机下发约定好的默认初始流表</li>
-<li>控制器向交换机发送LLDP、LCFP等链路探测报文,并生成网络拓扑图</li>
+<li>控制器向交换机发送LLDP、ICFP等链路探测报文,并生成网络拓扑图</li>
 <li>控制器根据网络拓扑计算路径并下发代表路径的流表,计算的路径有如下两种,其它比如某设备到外网交换机的是没有算的:<ul>
 <li>车到车,车间的路径,就是外网交换机到外面的</li>
 <li>车内内网交换机到外网交换机的</li>
@@ -254,7 +266,192 @@
 <li>终端开始对外通信,触发ARP\IP等解码器,处理并收集结果</li>
 <li>根据终端的通信情况计算其它部分的路径,理想情况下,上部分算过的路径不用再算,如果发现算过的有误不能到达,那么触发重新计算</li>
 </ul>
-<h2 id="代码梳理"><a href="#代码梳理" class="headerlink" title="代码梳理"></a>代码梳理</h2>
+<h2 id="代码梳理"><a href="#代码梳理" class="headerlink" title="代码梳理"></a>代码梳理</h2><h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
+<li><a href="D:\ODL\files\openflow-spec-v1.3.0.pdf">openflow1.3规范英文版</a></li>
+<li><a target="_blank" rel="noopener" href="https://wenku.baidu.com/view/13e18d7674232f60ddccda38376baf1ffc4fe3fe.html">对openflow1.3的认知</a></li>
+</ul>
+<h3 id="建立连接"><a href="#建立连接" class="headerlink" title="建立连接"></a>建立连接</h3><p>​		这部分是OpenFlowPlugin项目提供的功能，应该不需要额外开发.</p>
+<h3 id="下发默认初始流表"><a href="#下发默认初始流表" class="headerlink" title="下发默认初始流表"></a>下发默认初始流表</h3><p>​		这里暂定初始流表就是把无法匹配的报文上送到控制器.这里需要明确openflow13流表的细致结构,下面分别对各个流表项进行说明(<strong>不包括计量表和组表</strong>):</p>
+<img src="https://fastly.jsdelivr.net/gh/Simonck33420/image/202208111712587.png" alt="image-20220811171139895" style="zoom: 50%;" />
+
+<ul>
+<li>匹配域Match Fields:openflow13把被匹配的内容称为元组,共有40个,其中有13个元组是必备元组,其它是可选配元组.全部元组列表如下:</li>
+</ul>
+<img src="https://fastly.jsdelivr.net/gh/Simonck33420/image/openflow%E5%8C%B9%E9%85%8D%E9%A1%B91-20221012.jpg" alt="openflow匹配项1" style="zoom:50%;" />
+
+<img src="https://fastly.jsdelivr.net/gh/Simonck33420/image/%E6%B5%81%E8%A1%A8%E5%8C%B9%E9%85%8D%E9%A1%B92-20221012.jpg" alt="流表匹配项2" style="zoom:50%;" />
+
+<p>其中必备13元组如下表:</p>
+<table>
+<thead>
+<tr>
+<th align="center">元组名称</th>
+<th>编号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">进入端口</td>
+<td>0?</td>
+</tr>
+<tr>
+<td align="center">以太网源地址</td>
+<td>4</td>
+</tr>
+<tr>
+<td align="center">以太网目标地址</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="center">以太网类型</td>
+<td>5?</td>
+</tr>
+<tr>
+<td align="center">IPv4或IPv6</td>
+<td>10?</td>
+</tr>
+<tr>
+<td align="center">IPv4源地址</td>
+<td>11</td>
+</tr>
+<tr>
+<td align="center">IPv4目标地址</td>
+<td>12</td>
+</tr>
+<tr>
+<td align="center">IPv6源地址</td>
+<td>26</td>
+</tr>
+<tr>
+<td align="center">IPv6目标地址</td>
+<td>27</td>
+</tr>
+<tr>
+<td align="center">TCP源端口地址</td>
+<td>13</td>
+</tr>
+<tr>
+<td align="center">TCP目标端口地址</td>
+<td>14</td>
+</tr>
+<tr>
+<td align="center">UDP源端口地址</td>
+<td>15</td>
+</tr>
+<tr>
+<td align="center">UDP目标端口地址</td>
+<td>16</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>优先级Priority:流表项的匹配优先级</p>
+</li>
+<li><p>计数器Counters:这个流表被匹配到多少次</p>
+</li>
+<li><p>指令Instructions:这条流表对报文可执行的操作</p>
+<p>​	指令的类型:</p>
+<p><img src="https://fastly.jsdelivr.net/gh/Simonck33420/image/%E6%8C%87%E4%BB%A4%E7%B1%BB%E5%9E%8B20221010.png" alt="image-20221010184838267"></p>
+<p>​	动作集的内容:</p>
+<p><img src="https://fastly.jsdelivr.net/gh/Simonck33420/image/%E5%8A%A8%E4%BD%9C%E9%9B%86%E5%86%85%E5%AE%B920221010.png" alt="image-20221010184907904"></p>
+</li>
+<li><p>超时时间Timeouts:<a target="_blank" rel="noopener" href="https://www.sdnlab.com/22563.html">OpenFlow协议超时机制简介</a>:</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">超时种类</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">硬超时hard timeout</td>
+<td align="center">当该流表项的存在时间超过了预设置的硬超时，流表项就会被交换机从流表中移除。即流表项从交换机移除的绝对时间</td>
+</tr>
+<tr>
+<td align="center">空闲超时idle timeout</td>
+<td align="center">如果连续idle timeout时间内都没有匹配到这条流表,则交换机会主动将该流表项从流表中移除</td>
+</tr>
+</tbody></table>
+<ul>
+<li>cookie:由控制器选择的不透明数据值。控制器用来过滤流统计数据、流改变和流删除。 但处理数据包时不能使用</li>
+</ul>
+<hr>
+<p>​		综上所述,下发的默认流表应该是所有字段通配（省略）,优先级较低,指令动作集为output到控制器端口的流表,或者是动作为drop的流表,其它三个字段视情况而定.</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//参看l2switch-main模块</span>
+<span class="token comment">/**组建dropall流表*/</span>
+<span class="token keyword">private</span> <span class="token class-name">Flow</span> <span class="token function">createDropAllFlow</span><span class="token punctuation">(</span><span class="token class-name">Short</span> tableId<span class="token punctuation">,</span> <span class="token keyword">int</span> priority<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">/**初始化建立流表的对象FlowBuilder,并指定把流表下到哪一个表中(table0或table1)*/</span>
+            <span class="token class-name">FlowBuilder</span> dropAll <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FlowBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">//</span>
+                    <span class="token punctuation">.</span><span class="token function">setTableId</span><span class="token punctuation">(</span>tableId<span class="token punctuation">)</span> <span class="token comment">//</span>
+                    <span class="token punctuation">.</span><span class="token function">setFlowName</span><span class="token punctuation">(</span><span class="token string">"dropall"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token comment">/**用哈希code作为他自己的id*/</span>
+            dropAll<span class="token punctuation">.</span><span class="token function">setId</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">FlowId</span><span class="token punctuation">(</span><span class="token class-name">Long</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>dropAll<span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  		<span class="token comment">/**建立匹配项,对于dropall流表来说这里应该是通配或者通不配,这里是匹配项为空*/</span>
+            <span class="token class-name">Match</span> match <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MatchBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  		<span class="token comment">/**创建dropall动作到动作集?对应write-action?*/</span>
+            <span class="token class-name">Action</span> dropAllAction <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ActionBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 
+                    <span class="token punctuation">.</span><span class="token function">setOrder</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">setAction</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">DropActionCaseBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">// 创建可选的Apply Action</span>
+            <span class="token class-name">ApplyActions</span> applyActions <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ApplyActionsBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setAction</span><span class="token punctuation">(</span><span class="token class-name">ImmutableList</span><span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>dropAllAction<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">// 把Apply Action放到一个指令里</span>
+            <span class="token class-name">Instruction</span> applyActionsInstruction <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">InstructionBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">//</span>
+                    <span class="token punctuation">.</span><span class="token function">setOrder</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">setInstruction</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ApplyActionsCaseBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token comment">//</span>
+                            <span class="token punctuation">.</span><span class="token function">setApplyActions</span><span class="token punctuation">(</span>applyActions<span class="token punctuation">)</span> <span class="token comment">//</span>
+                            <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//</span>
+                    <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">// 组建流表</span>
+            dropAll<span class="token punctuation">.</span><span class="token function">setMatch</span><span class="token punctuation">(</span>match<span class="token punctuation">)</span> <span class="token comment">//</span>
+                    <span class="token punctuation">.</span><span class="token function">setInstructions</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">InstructionsBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">//</span>
+                            <span class="token punctuation">.</span><span class="token function">setInstruction</span><span class="token punctuation">(</span><span class="token class-name">ImmutableList</span><span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>applyActionsInstruction<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//</span>
+                            <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//</span>
+                    <span class="token punctuation">.</span><span class="token function">setPriority</span><span class="token punctuation">(</span>priority<span class="token punctuation">)</span> <span class="token comment">//</span>
+                    <span class="token punctuation">.</span><span class="token function">setBufferId</span><span class="token punctuation">(</span><span class="token class-name">OFConstants</span><span class="token punctuation">.</span>OFP_NO_BUFFER<span class="token punctuation">)</span> <span class="token comment">//</span>
+                    <span class="token punctuation">.</span><span class="token function">setHardTimeout</span><span class="token punctuation">(</span>flowHardTimeout<span class="token punctuation">)</span> <span class="token comment">//</span>
+                    <span class="token punctuation">.</span><span class="token function">setIdleTimeout</span><span class="token punctuation">(</span>flowIdleTimeout<span class="token punctuation">)</span> <span class="token comment">//</span>
+                    <span class="token punctuation">.</span><span class="token function">setCookie</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">FlowCookie</span><span class="token punctuation">(</span><span class="token class-name">BigInteger</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>flowCookieInc<span class="token punctuation">.</span><span class="token function">getAndIncrement</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">setFlags</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">FlowModFlags</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token comment">//返回一个流表对象</span>
+            <span class="token keyword">return</span> dropAll<span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+<span class="token comment">/**Flowbuilder的成员对象是流表的各个表项,没看到counter?*/</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FlowBuilder</span> <span class="token keyword">implements</span> <span class="token class-name">Builder</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Flow</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Long</span> _bufferId<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> _containerName<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">FlowCookie</span> _cookie<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">FlowCookie</span> _cookieMask<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">FlowModFlags</span> _flags<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> _flowName<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Integer</span> _hardTimeout<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">FlowId</span> _id<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Integer</span> _idleTimeout<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Instructions</span> _instructions<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Match</span> _match<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Long</span> _outGroup<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">BigInteger</span> _outPort<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Integer</span> _priority<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Short</span> _tableId<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Boolean</span> _barrier<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Boolean</span> _installHw<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Boolean</span> _strict<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">FlowKey</span> key<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/**下发流表:ODL对流表的操作分为三种:
+1.addFlow:创建流表和写流表的综合方法称为添加,相当于一键创建并下发流表
+addFlow&#123;
+writeFlowToController(nodeId, tableId, flowId, createDropAllFlow(flowTableId, flowPriority));
+&#125;
+2.writeFlow:把流表写到交换机
+3.createFlow:创建流表本身
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="发送协议报文"><a href="#发送协议报文" class="headerlink" title="发送协议报文"></a>发送协议报文</h3><p>​		这里梳理如何对外发送协议报文，这里的协议报文分两种：1.openflow13消息 2.lldp或ospf协议报文。这里最好对照私有项目梳理，标准l2switch中arphandler有代码也可以参考。</p>
+<h3 id="解析收到的报文"><a href="#解析收到的报文" class="headerlink" title="解析收到的报文"></a>解析收到的报文</h3><p>​		结合decoder的梳理。</p>
+<h3 id="生成拓扑图"><a href="#生成拓扑图" class="headerlink" title="生成拓扑图"></a>生成拓扑图</h3><p>​		这里是遍历算法。</p>
+<h3 id="计算默认流表并下发"><a href="#计算默认流表并下发" class="headerlink" title="计算默认流表并下发"></a>计算默认流表并下发</h3><p>​		重点在如何计算流表。</p>
+
     </div>
 
     
@@ -275,6 +472,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2022/10/14/SDN%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/" rel="next" title="SDN开发日志">
+                  SDN开发日志 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>

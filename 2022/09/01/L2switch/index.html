@@ -30,7 +30,7 @@
 <meta property="og:description" content="​		本文记录了对标准L2switch和私有L2switch的阅读和解析.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-01T01:42:36.370Z">
-<meta property="article:modified_time" content="2022-09-27T08:00:40.014Z">
+<meta property="article:modified_time" content="2022-10-14T08:39:33.495Z">
 <meta property="article:author" content="Simonck">
 <meta property="article:tag" content="L2switch">
 <meta name="twitter:card" content="summary">
@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -220,7 +220,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-09-27 16:00:40" itemprop="dateModified" datetime="2022-09-27T16:00:40+08:00">2022-09-27</time>
+      <time title="修改时间：2022-10-14 16:39:33" itemprop="dateModified" datetime="2022-10-14T16:39:33+08:00">2022-10-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -253,6 +253,7 @@
 <li><a target="_blank" rel="noopener" href="https://www.sdnlab.com/18285.html">L2switch源码分析（上）</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.sdnlab.com/18293.html">L2switch源码分析（下）</a></li>
 <li><a target="_blank" rel="noopener" href="https://heroacool.blog.csdn.net/article/details/51014824?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-51014824-blog-124864695.pc_relevant_default&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-51014824-blog-124864695.pc_relevant_default&utm_relevant_index=2">Dijkstra算法</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/greearb/xorp.ct">Xorp官方Github</a></li>
 </ul>
 </li>
 <li><p>项目模块：</p>
@@ -393,7 +394,7 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
     <span class="token function">clearQueue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>HostTrackerImpl会监听data tree的改变并根据不同的改变类型做出处理并修改数据树,私有模块在这里插入了AddHostBuilder和SayLinkBuilder,他们是由yang文件生成的,用来把ODL的处理结果发布成notification并被私有模块的listener订阅.这样就获取了主机上线、增加连接、删除连接等结果。定义的yang文件在hosttracker\model\src\main\yang\host-tracker-service.yang，添加内容如下：</p>
+<p>​		HostTrackerImpl会监听data tree的改变并根据不同的改变类型做出处理并修改数据树,私有模块在这里插入了AddHostBuilder和SayLinkBuilder,他们是由yang文件生成的,用来把ODL的处理结果发布成notification并被私有模块的listener订阅.这样就获取了主机上线、增加连接、删除连接等结果。定义的yang文件在hosttracker\model\src\main\yang\host-tracker-service.yang，添加内容如下：</p>
 <pre class="line-numbers language-yang" data-language="yang"><code class="language-yang"><span class="token keyword">notification</span> say-link<span class="token punctuation">&#123;</span>
 		<span class="token keyword">leaf</span> message<span class="token punctuation">&#123;</span>
 	<span class="token keyword">type</span> string<span class="token punctuation">;</span>
@@ -458,7 +459,7 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
             <span class="token function">packetReceived</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">Addresses</span><span class="token punctuation">)</span> dataObject<span class="token punctuation">,</span> iid<span class="token punctuation">)</span><span class="token punctuation">;</span>
           <span class="token comment">//region:增加通知私有的拓扑模块添加主机</span>
           <span class="token class-name">String</span> nc_id <span class="token operator">=</span>iid<span class="token punctuation">.</span><span class="token function">firstIdentifierOf</span><span class="token punctuation">(</span><span class="token class-name">NodeConnector</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">firstKeyOf</span><span class="token punctuation">(</span><span class="token class-name">NodeConnector</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-          <span class="token class-name">Address</span> a <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Address</span><span class="token punctuation">)</span>dataObject<span class="token punctuation">;</span>
+          <span class="token class-name">Addresses</span> a <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Addresses</span><span class="token punctuation">)</span>dataObject<span class="token punctuation">;</span>
           <span class="token class-name">AddHostBuilder</span> ab <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AddHostBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
           ab<span class="token punctuation">.</span><span class="token function">setIp</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token function">getIp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getIpv4Address</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
           ab<span class="token punctuation">.</span><span class="token function">setMac</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span><span class="token function">getMac</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -635,7 +636,8 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="pom-xml-增加了依赖项"><a href="#pom-xml-增加了依赖项" class="headerlink" title="pom.xml:增加了依赖项"></a>pom.xml:增加了依赖项</h3><p>​		增加了依赖项,主要是openflowplugin、snmp、json等方面.</p>
-<h3 id="control-增加"><a href="#control-增加" class="headerlink" title="control(增加):"></a>control(增加):</h3><table>
+<h3 id="control-增加"><a href="#control-增加" class="headerlink" title="control(增加):"></a>control(增加):</h3><p>后端控制器的工作逻辑：</p>
+<table>
 <thead>
 <tr>
 <th align="center">package\class</th>
@@ -660,7 +662,7 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
 </tr>
 <tr>
 <td align="center">listener</td>
-<td align="center">创建了各种消息的侦听器</td>
+<td align="center">订阅各种notification</td>
 </tr>
 <tr>
 <td align="center">pathfinding</td>
@@ -668,11 +670,11 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
 </tr>
 <tr>
 <td align="center">processer</td>
-<td align="center"></td>
+<td align="center">处理ip报文，包括二层、三层，单播、组播</td>
 </tr>
 <tr>
 <td align="center">service</td>
-<td align="center"></td>
+<td align="center">给前端提供接口服务</td>
 </tr>
 <tr>
 <td align="center">util</td>
@@ -724,9 +726,9 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
 ------flow:早期用于下流表的代码,由于改需求已经不用了,暂时没删除,供参考
 ------highlight:控制拓扑有流量时高亮功能的代码,,现在是由自己的前端控制,已经不用了,供参考
 ------host:存放外网交换机的dpid和mac,包括源和目的,暂时用不上
-------internal:处理车内终端和链接状态
-------multicast:(多播)
-------path:包括路径对象,和路径的配置等等
+------internal:处理车内终端和车内连接关系
+------multicast(多播):用于缓存组播处理后的结果,这部分在使用
+------path:包括路径对象,和路径的配置等对象,相当于定义了一些跟路径有关的数据结构
 ------rule:现在用其他方法配规则,已经不用了
 ------Narrowband.java(窄带):读窄带端机的信息,ip\掩码\下一跳等*/</span>
 <span class="token comment">/**flow:包含4*xx.java*/</span>
@@ -876,17 +878,82 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
   <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">></span></span> ALL_CHANNEL_LIST <span class="token operator">=</span> <span class="token class-name">Stream</span><span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">toList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**listener:这个package大部分都在用的,不只是监听器,还包括了监听到事件后进一步采取的基本措施,
-				比如:发报文\下流表\存信息等
-------ARPlistener:监听ARP报文,并对收到的ARP报文进行解析并发送
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**listener:这个package大部分都在用的,订阅了多种notification，相当于notification触发了listener的进一步处理
+			SegmentedPathCalculationListener和TopoChangeNotificationListener功能最为重要
+------ARPlistener:订阅arp解码器的notification,进一步处理arp报文
 ------C2CPacketListener:监听C2C报文,并对收到的报文分情况判断,解析,再发送出去,其中的反向流表已经没有这个概念了,
 		 由于代码调整,目前只有组播流表下发还在使用
 ------HostInfoListener:监听主机上线,发现上线后获取主机的信息,存储主机的信息,再完成洪泛主机的存在,
 		 下发必要流表等功能,包括免费ARP报文;主机下线后删除相关的信息,以及处理其他,SayLink代表Link发生变动
 ------LldpListener:收到LLDP报文,分析\过滤掉不要的报文,处理LLDP报文发现的连接关系,生成流表之类的
-------SegmentedPathCalculationListener:计算分段路径
+------SegmentedPathCalculationListener:计算外部分段路径,接收lsa变动规则配置通知,进行路径重算并下发车间流表
 ------TopoChangeNotificationListener:监听拓扑变化,处理拓扑变化带来的后续动作,增删节点\设备,洪泛信息,重算路径等等
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+*/</span>
+<span class="token comment">/**HostInfoListener,实现的接口跟addhost和saylink等都是yang语言自己定义的*/</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HostInfoListener</span> <span class="token keyword">implements</span> <span class="token class-name">HostTrackerServiceListener</span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">public</span> <span class="token class-name">SalFlowService</span> salFlowService；<span class="token comment">//说明需要下发流表</span>
+  <span class="token keyword">public</span> <span class="token class-name">CustomPacketDispatcher</span> customPacketDispatcher；<span class="token comment">//说明需要发送报文</span>
+  <span class="token keyword">public</span> <span class="token class-name">HostInfoListener</span><span class="token punctuation">(</span><span class="token class-name">SalFlowService</span> salFlowService<span class="token punctuation">,</span><span class="token class-name">CustomPacketDispatcher</span> customPacketDispatcher<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>salFlowService<span class="token operator">=</span>salFlowService<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>customPacketDispatcher<span class="token operator">=</span>customPacketDispatcher<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token comment">/**这里订阅了HostTracker中添加的两个Notification:主机信息、主机和交换机连接的信息*/</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onAddHost</span><span class="token punctuation">(</span><span class="token class-name">AddHost</span> notification<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token class-name">String</span> ip<span class="token operator">=</span>notification<span class="token punctuation">.</span><span class="token function">getIp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>ip<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">"0.0.0.0"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span><span class="token comment">//0.0.0.0ip代表本机或无法识别的设备</span>
+    <span class="token class-name">String</span> mac <span class="token operator">=</span> notification<span class="token punctuation">.</span><span class="token function">getMac</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> strs <span class="token operator">=</span>  notification<span class="token punctuation">.</span>getNcID<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">":"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//把NcID的内容根据":"分隔开,然后依次装到数组中，其实就是openflow:22:26</span>
+    <span class="token keyword">int</span> dpid <span class="token operator">=</span> <span class="token class-name">Integer</span><span class="token punctuation">.</span><span class="token function">valueof</span><span class="token punctuation">(</span>strs<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//数组索引1是dpid,指的是连在哪台设备上,2是端口</span>
+    <span class="token keyword">int</span> output_port <span class="token operator">=</span> <span class="token class-name">Integer</span><span class="token punctuation">.</span><span class="token function">valueof</span><span class="token punctuation">(</span>strs<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token class-name">InternalDB</span><span class="token punctuation">.</span>EXTERNAL_LINK_PORTS<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>output_port<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span><span class="token comment">//发现的端口是车间连接的端口,这个端口不处理lldp报文,从配置文件获取,不应该连主机</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>ip<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token class-name">InternalDB</span><span class="token punctuation">.</span>GATEWAY_IP<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span><span class="token comment">//发现的是网关</span>
+    <span class="token comment">/**在控制台输出发现的主机,目前不是log*/</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"发现主机:ip|%s mac|%s dpid|%s 端口|%s"</span><span class="token punctuation">,</span>ip<span class="token punctuation">,</span>mac<span class="token punctuation">,</span>dpid<span class="token punctuation">,</span>output_port<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">/**InternalDB中定义了集合HOSTS存储信息,数据格式是(mac,host)的键值对,数据类型是HostInfo类型，
+         新建一个HostInfo类型的对象host,到HOSTS索引本次主机追踪发现的mac地址，并把结果存入host中，
+         如果host为空，代表这是一个没有发现过的主机，新建对象并且存入HOSTS，
+         如果host有数据，代表这是一个之前发现过的主机，更新数据即可 */</span>
+    <span class="token class-name">HostInfo</span> host <span class="token operator">=</span> <span class="token class-name">InternalDB</span><span class="token punctuation">.</span>HOSTS<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>mac<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>host<span class="token operator">==</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+      <span class="token class-name">Set</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span>ipSet <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      ipSet<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      host <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HostInfo</span><span class="token punctuation">(</span>ipSet<span class="token punctuation">,</span>dpid<span class="token punctuation">,</span>mac<span class="token punctuation">,</span>output_port<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token class-name">InternalDB</span><span class="token punctuation">.</span>HOSTS<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>mac<span class="token punctuation">,</span>host<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+      host<span class="token punctuation">.</span><span class="token function">getIp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      host<span class="token punctuation">.</span><span class="token function">setDp_id</span><span class="token punctuation">(</span>dpid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      host<span class="token punctuation">.</span><span class="token function">setOut_port</span><span class="token punctuation">(</span>output_port<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>   
+  <span class="token punctuation">&#125;</span>
+  <span class="token comment">/**洪泛信息:
+  icfpv2Target是packethand中icfp.master中的一个类,相当于icfp诸多功能的一个入口
+  icfpv2Target.icfp_add_host方法调用的icfp.icfp_add_host,又进一步调用get_peer_manager().add_host()
+  这里应该不是添加到ODL内存中,而是添加到私有维护的模块中
+  后续用法原理类似*/</span>
+   <span class="token class-name">ControlProvider</span><span class="token punctuation">.</span>icfpv2Target<span class="token punctuation">.</span><span class="token function">icfp_add_host</span><span class="token punctuation">(</span>ip<span class="token punctuation">,</span>mac<span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">/**免费arp:主机请求自己的mac地址,不期望得到回应,
+       作用:1.避免有人跟自己有相同的ip2.自己的mac更改时,可以告诉别的设备更改缓存表*/</span>
+   <span class="token class-name">SendFreeARP2Transit</span><span class="token punctuation">(</span>ip<span class="token punctuation">,</span>mac<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">/**下发外网交换机到pc的流表*/</span>
+   <span class="token class-name">UnicastUtil</span><span class="token punctuation">.</span><span class="token function">addFlow_ExternalToPC</span><span class="token punctuation">(</span>ip<span class="token punctuation">,</span>mac<span class="token punctuation">,</span>dpid<span class="token punctuation">,</span>output_port<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">/**洪泛主机连接信息*/</span>
+   <span class="token class-name">Link</span> addLink <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Link</span><span class="token punctuation">(</span>mac<span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">short</span><span class="token punctuation">)</span>host<span class="token punctuation">.</span><span class="token function">getDp_id</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token class-name">ControlProvider</span><span class="token punctuation">.</span>icfpv2Target<span class="token punctuation">.</span><span class="token function">icfp_add_inner_topology</span><span class="token punctuation">(</span>addLink<span class="token punctuation">.</span><span class="token function">get_d_id</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>addLink<span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">/**处理过程跟onAddHost类似,为提高阅读速度,不详细说明*/</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onSayLinkl</span><span class="token punctuation">(</span><span class="token class-name">SayLink</span> notification<span class="token punctuation">)</span><span class="token punctuation">&#123;</span> <span class="token punctuation">&#125;</span>
+  <span class="token comment">/**这里最后调用了CustomPacketDispatcher中的方法发出报文*/</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token class-name">SendFreeARP2Transit</span><span class="token punctuation">(</span><span class="token class-name">String</span> ip<span class="token punctuation">,</span><span class="token class-name">String</span> mac<span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+  <span class="token comment">/**FlowTopologyDiscoveryListener是openflowplugin.model定义的yang文件生成的接口,这里用maven依赖跨工程调用了*/</span>
+  <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LldpListener</span> <span class="token keyword">implements</span> <span class="token class-name">FlowTopologyDiscoveryListener</span><span class="token punctuation">&#123;</span>
+  	<span class="token comment">/**重写了接口中的四个方法,其中只有第一第三有内容*/</span>
+    <span class="token function">onLinkDiscoverd</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">onLinkOverutilized</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//连接重复</span>
+    <span class="token function">onLinkRemoved</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">onLinkUtilizationNormal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//链接使用正常?</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**pathfinding:
 ------ExtPathFinder:
@@ -909,23 +976,23 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
    <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**processor：
-------Ipv4Handler:
-------Ipv4Processor:
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**processor：这两类的结构基本一致，梳理清Ipv4Processor即可
+------Ipv4Handler:处理被搬移到二层的ip报文，暂时不用，优先使用Ipv4Processor
+------Ipv4Processor:处理三层单播和组播
 */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**service:
-------entity(package):
-------ControlServiceImpl:
-------HighlightKey:
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**service:用于给前端提供服务，返回接口调用的内容，对于学习后端控制逻辑来说这部分不重要
+------entity(package):定义了许多数据结构类，一级拓扑、二级拓扑、连接，状态等等
+------ControlServiceImpl:服务功能的具体实现
+------HighlightKey:跟信道高亮有关
 */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**util:
-------byteencode:
-------flowcapablenodemapping:
-------instanceidentifierutils:
-------multicastutil:组播
-------unicastutil:单播
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**util:工具包
+------byteencode:转换数据格式的
+------flowcapablenodemapping:把lldp的notification转成某个类？
+------instanceidentifierutils:ODL提供的，被复制到这里
+------multicastutil:组播，包括构建组播的流表、报文等等
+------unicastutil:单播，功能同上
 */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**ControlProvider:  */</span>
@@ -972,7 +1039,16 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sendArpRequest</span><span class="token punctuation">(</span><span class="token class-name">String</span> s_ip<span class="token punctuation">,</span><span class="token class-name">String</span> d_ip<span class="token punctuation">,</span><span class="token class-name">String</span> s_mac<span class="token punctuation">,</span><span class="token class-name">String</span> nodeId<span class="token punctuation">,</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">InternalLink</span><span class="token punctuation">></span></span> links<span class="token punctuation">,</span><span class="token class-name">NodeConnectorRef</span> origIngress<span class="token punctuation">,</span><span class="token keyword">boolean</span> external<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="icfp-增加"><a href="#icfp-增加" class="headerlink" title="icfp(增加):"></a>icfp(增加):</h3><table>
+<h3 id="icfp-增加"><a href="#icfp-增加" class="headerlink" title="icfp(增加):"></a>icfp(增加):</h3><p>​		私有协议名为智能连接转发协议,简称ICFP,包括三个部分,代码主体来自对C++OSPF的移植,选择其中有用的部分移植到了java环境,源代码Xorp<a target="_blank" rel="noopener" href="https://github.com/greearb/xorp.ct">官方Github</a>:</p>
+<ul>
+<li><p>icdp:智能连接发现协议,车内链路信息搜集</p>
+</li>
+<li><p>icgp:智能连接组播组协议,组播路由信息搜集</p>
+</li>
+<li><p>icsp:智能连接切换协议,车间链路信息搜集</p>
+</li>
+</ul>
+<table>
 <thead>
 <tr>
 <th align="center">package\class</th>
@@ -981,11 +1057,11 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
 </thead>
 <tbody><tr>
 <td align="center">icsp</td>
-<td align="center"></td>
+<td align="center">智能连接切换协议,车间链路信息搜集</td>
 </tr>
 <tr>
 <td align="center">igmp</td>
-<td align="center"></td>
+<td align="center">组播的因特网组管理协议，来自floodlight</td>
 </tr>
 <tr>
 <td align="center">master</td>
@@ -997,9 +1073,60 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
 </tr>
 <tr>
 <td align="center">utils</td>
-<td align="center"></td>
+<td align="center">工具包</td>
 </tr>
 </tbody></table>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**icsp:
+------area:
+------common:
+------decoder:
+------entity:
+------enumtype:
+------lsa:
+------packet:
+------peer:
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**igmp:
+------
+------
+------
+------
+------
+------
+------
+------
+------
+------
+------
+------
+------
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**master:
+------icfp:
+------icfpv2target:
+------initialicfpflowwriter:
+------proactivefloodflowwriter:
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**timer:
+------
+------
+------
+------
+------
+------
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**utils:
+------
+------
+------
+------
+------
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h2 id="loopremover-暂不使用"><a href="#loopremover-暂不使用" class="headerlink" title="loopremover(暂不使用)"></a>loopremover(暂不使用)</h2><p>​		loopremover模块使用stp协议消除环路,生成无环拓扑图,在目前的私有项目中不考虑这一部分,因为机动通信系统的组织架构天然是胖树结构没有环,甚至天然是路径树,所以不需要去除环路的部分,不过为丰富代码的健壮性,这个功能将来需要补充.loopremover的结构跟l2switch-main类似:</p>
 <h3 id="loopremoverprovider"><a href="#loopremoverprovider" class="headerlink" title="loopremoverprovider"></a>loopremoverprovider</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**loopremoverprovider:模块的入口*/</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LoopRemoverProvider</span> <span class="token punctuation">&#123;</span>
@@ -1015,8 +1142,7 @@ Proactive模式主动下发洪泛ARP的流表,Reactive模式下发把ARP报文�
 ------InitialFlowWriter:在所有交换机上添加一个将所有LLDP数据包发送到控制器的流。注册为ODL
 									资源清册侦听器，以便在添加新节点（即交换机）后添加流。
 									InitialFlowWriterProcessor中包含添加流表、创建流表、写入流表等方法
-*/</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="topology"><a href="#topology" class="headerlink" title="topology"></a>topology</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**topology:处理拓扑,这里只简单的分析一下networkgraphimpl
 ------networkgraphimpl:去除环路的类,内部使用Jung图库维护图，并使用Dijkstra算法以最佳方式返回最短路径。

@@ -29,11 +29,13 @@
 <meta property="og:site_name" content="SDN BOLG">
 <meta property="og:description" content="​		本文记录了Openflowplugin项目的阅读和解析.">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/openflowplugin%E9%A1%B6%E5%B1%82%E6%9E%B6%E6%9E%8420220927.png">
 <meta property="article:published_time" content="2022-09-01T01:42:36.374Z">
-<meta property="article:modified_time" content="2022-09-27T08:17:29.838Z">
+<meta property="article:modified_time" content="2022-10-14T12:56:07.560Z">
 <meta property="article:author" content="Simonck">
 <meta property="article:tag" content="Openflowplugin">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/openflowplugin%E9%A1%B6%E5%B1%82%E6%9E%B6%E6%9E%8420220927.png">
 
 
 <link rel="canonical" href="http://example.com/2022/09/01/Openflowplugin/">
@@ -134,7 +136,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +147,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -220,7 +222,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-09-27 16:17:29" itemprop="dateModified" datetime="2022-09-27T16:17:29+08:00">2022-09-27</time>
+      <time title="修改时间：2022-10-14 20:56:07" itemprop="dateModified" datetime="2022-10-14T20:56:07+08:00">2022-10-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -246,16 +248,26 @@
 <span id="more"></span>
 
 <h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><ul>
-<li>参考文献<ul>
+<li><p>参考文献</p>
+<ul>
 <li><a target="_blank" rel="noopener" href="https://www.sdnlab.com/22486.html">OpenflowPlugin源码分析(一至八)</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xinquanv1/article/details/83338296?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166426607916782388095798%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=166426607916782388095798&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-5-83338296-null-null.nonecase&utm_term=odl&spm=1018.2226.3001.4450">【ODL源码分析01】－openflowplugin be版本连接分析</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xinquanv1/article/details/83338315?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166426607916782388095798%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=166426607916782388095798&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-7-83338315-null-null.nonecase&utm_term=odl&spm=1018.2226.3001.4450">【ODL源码分析02】－openflowplugin 氧版本连接分析</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xinquanv1/article/details/84572055?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166426607916782388095798%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=166426607916782388095798&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-4-84572055-null-null.nonecase&utm_term=odl&spm=1018.2226.3001.4450">【ODL源码分析03】－opendaylight neutron项目分析</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xinquanv1/article/details/102613636?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166426607916782388095798%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=166426607916782388095798&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-6-102613636-null-null.nonecase&utm_term=odl&spm=1018.2226.3001.4450">【ODL源码分析04】－ovsdb 被动连接上报流程</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u_hcy2000/article/details/120734084">OpenDaylight应用基础开发（感受SDN，介绍OpenFlow，OpenFlowPlugin）</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.opendaylight.org/projects/openflowplugin/en/stable-sodium/users/architecture.html">官网文档入口</a></li>
 </ul>
 </li>
+<li><p>openflowplugin-sodium High Level Architecture</p>
+<p><img src="https://fastly.jsdelivr.net/gh/Simonck33420/image/openflowplugin%E9%A1%B6%E5%B1%82%E6%9E%B6%E6%9E%8420220927.png" alt="image-20220927174431393"></p>
+</li>
 </ul>
+<p>OpenFlowJava:是一个实现OpenFlow编解码器的库，它将OpenFlow消息转换为它们各自的内部表示，反之亦然。</p>
+<p>OpenFlowPlugin:终止对 OpenFlow 交换机的会话，提供一个每个交换机的低级OpenFlow服务API(add-modify-flow, delete-flow, etc.)</p>
+<p>Statistics Manager: 负责从附加的OpenFlow交换机收集统计数据和状态，并将它们存储到ODL中供应用程序使用。</p>
+<p>Topology Manager:负责使用 LLDP 发现OpenFlow拓扑，并将其放入ODL中供应用程序使用。</p>
+<p>Forwarding Rules Manager:顶层OpenFlow模块，向控制器应用程序公开OF功能，提供应用程序级API。管理 OpenFlow交换机内存和交换机中流程的配置(编程)的主要实体。它还将用户配置与OpenFlowPlugin发现的网络状态进行协调。</p>
 
     </div>
 
