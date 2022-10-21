@@ -29,16 +29,16 @@
 <meta property="og:site_name" content="SDN BOLG">
 <meta property="og:description" content="​		本文梳理了ARP的详细流程。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/20220908连接示意图2.jpg">
-<meta property="og:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/20220908%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7.png">
-<meta property="og:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/20220908ARP请求.png">
-<meta property="og:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/20220908%E4%B8%BE%E4%BE%8B-%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7.png">
+<meta property="og:image" content="https://simonck-blog.oss-cn-beijing.aliyuncs.com/image-main/20220908连接示意图2.jpg">
+<meta property="og:image" content="https://simonck-blog.oss-cn-beijing.aliyuncs.com/image-main/20220908%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7.png">
+<meta property="og:image" content="https://simonck-blog.oss-cn-beijing.aliyuncs.com/image-main/20220908ARP请求.png">
+<meta property="og:image" content="https://simonck-blog.oss-cn-beijing.aliyuncs.com/image-main/20220908%E4%B8%BE%E4%BE%8B-%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7.png">
 <meta property="article:published_time" content="2022-09-08T08:57:27.222Z">
-<meta property="article:modified_time" content="2022-09-29T06:45:29.762Z">
+<meta property="article:modified_time" content="2022-10-21T07:49:44.181Z">
 <meta property="article:author" content="Simonck">
 <meta property="article:tag" content="ARP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://fastly.jsdelivr.net/gh/Simonck33420/image/20220908连接示意图2.jpg">
+<meta name="twitter:image" content="https://simonck-blog.oss-cn-beijing.aliyuncs.com/image-main/20220908连接示意图2.jpg">
 
 
 <link rel="canonical" href="http://example.com/2022/09/08/ARP%E6%B5%81%E7%A8%8B%E6%A2%B3%E7%90%86/">
@@ -225,7 +225,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-09-29 14:45:29" itemprop="dateModified" datetime="2022-09-29T14:45:29+08:00">2022-09-29</time>
+      <time title="修改时间：2022-10-21 15:49:44" itemprop="dateModified" datetime="2022-10-21T15:49:44+08:00">2022-10-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -253,7 +253,7 @@
 <h2 id="研究背景约定"><a href="#研究背景约定" class="headerlink" title="研究背景约定"></a>研究背景约定</h2><ul>
 <li>连接示意图</li>
 </ul>
-<img src="https://fastly.jsdelivr.net/gh/Simonck33420/image/20220908连接示意图2.jpg" alt="微信图片_20220908135010" style="zoom: 33%;" />
+<img src="https://simonck-blog.oss-cn-beijing.aliyuncs.com/image-main/20220908连接示意图2.jpg" alt="微信图片_20220908135010" style="zoom: 33%;" />
 
 <ul>
 <li>情况说明：<ul>
@@ -269,17 +269,17 @@
 <li><p>对PC1命令行下发指令<code>ping 10.1.3.101</code>,ping指令是Icmp协议工作在IP层,会产生一个Icmp包,IP协议会把这个包封装在IP报文里面,并填上<strong>源IP:10.1.2.101</strong>和<strong>目的IP:10.1.3.101</strong>,然后把IP包交给数据链路层.</p>
 </li>
 <li><p>数据链路层使用去掉了无用可选项的以太网帧格式,正常的设备可以识别,在这一层需要填上目的MAC和源MAC,结构如下图,这时<strong>源MAC</strong>为PC1:11-22-33-44-55-66,<strong>目的MAC</strong>会到PC1的arp缓存里面查找,因为这是设备第一次上线,所以缓存里面没有目的IP:10.1.3.101对应的目的MAC,于是需要发送ARP请求.</p>
-<img src="https://fastly.jsdelivr.net/gh/Simonck33420/image/20220908%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7.png" alt="image-20220908141249187" style="zoom: 67%;" />
+<img src="https://simonck-blog.oss-cn-beijing.aliyuncs.com/image-main/20220908%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7.png" alt="image-20220908141249187" style="zoom: 67%;" />
 </li>
 <li><p>ARP请求也封装在以太网帧中,这时的<strong>源MAC</strong>是PC1:11-22-33-44-55-66,而<strong>目的MAC</strong>是广播:ff-ff-ff-ff-ff-ff,以太网类型是ARP(0x0806),净荷里写明想要请求MAC的IP,这个IP需要判断类别.如果请求的IP是本车内的,那么IP就正常填写,如果请求的IP是本车外的,这个IP就要填写为网关的IP:10.1.2.1.这条ARP请求会被PC1广播出去,被A车的内网交换机收到然后<strong>上送到控制器CtrlA</strong>.ARP请求示意图如下,示意图中要请求MAC的IP是10.228.90.12.</p>
-<img src="https://fastly.jsdelivr.net/gh/Simonck33420/image/20220908ARP请求.png" alt="image-20220908143257848" style="zoom:50%;" />
+<img src="https://simonck-blog.oss-cn-beijing.aliyuncs.com/image-main/20220908ARP请求.png" alt="image-20220908143257848" style="zoom:50%;" />
 </li>
 <li><p><strong>CtrlA</strong>处理ARP请求的方式是创建一个ARP应答报文随意回复一个MAC地址,假设为代答MAC:11-11-11-11-11-11,应答报文也是封装在以太网帧中,<strong>源MAC</strong>是代答MAC:11-11-11-11-11-11,<strong>目的MAC</strong>是PC1:11-22-33-44-55-66,以太网类型是ARP(0x0806),净荷里写明:被请求IP对应的MAC是代答MAC:11-11-11-11-11-11.其实就是控制器替(假装自己是)PC2给PC1回了一个ARP请求(代答),让PC1尽快把报文发出来,不要跨车去找PC2的MAC,防止在链路状态不好的时候卡在这.(这里也存在控制器处理报文的过程,为了逻辑清晰在下面展开)</p>
 </li>
 <li><p>PC1把得到的PC2:10.1.3.101对应的代答MAC:11-11-11-11-11-11写入ARP缓存,并填入Icmp的以太网报文,PC1以为的目的MAC是代答MAC:11-11-11-11-11-11,组包完成,发给A车的内网交换机.</p>
 </li>
 <li><p>由于是第一次上线两台车的内外网交换机都没有转发到车外的流表,因此A车内网交换机会直接上送至<strong>CtrlA</strong>,此时CtrlA面临的是一条以太网帧,具体内容是:</p>
-<p><img src="https://fastly.jsdelivr.net/gh/Simonck33420/image/20220908%E4%B8%BE%E4%BE%8B-%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7.png" alt="举例-以太网帧"></p>
+<p><img src="https://simonck-blog.oss-cn-beijing.aliyuncs.com/image-main/20220908%E4%B8%BE%E4%BE%8B-%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7.png" alt="举例-以太网帧"></p>
 <p>ODL的功能不是线性的，在PC上线的瞬间会触发多个模块,包括但不限于:HostTracker发现主机、拓扑发现、流表计算下发。所以这时候应该分为<strong>两种情况</strong>,<strong>第一种</strong>:这条包含Icmp报文的以太网帧到达内网交换机的时候，拓扑发现和流表计算下发已经完成了，这是交换机按照流表进行匹配转发就可以把这个以太网帧送给B车，这条报文也就不会被上送至控制器；<strong>第二种</strong>:这条包含Icmp报文的以太网帧到达内网交换机的时候，拓扑发现和流表计算下发没有完成,交换机没有转发至B车的流表,那么这条以太网帧就会被上送给控制器,控制器就要进行处理,处理的结果应该是重新计算并下发流表,保证后续的Icmp报文可以按照第一种情况处理,也就是说,理想情况下,控制器是不应该见到这条报文的.所以,本例探讨的场景其实至少包含了<strong>三个流程</strong>:1.主机发现;2.拓扑发现和流表计算下发;3.处理报文.</p>
 <p>为详细梳理流程,这里按照第二种情况处理.</p>
 </li>
